@@ -1,0 +1,1435 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rm_gen package &mdash; RM-Gen 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="API Reference" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RM-Gen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Setting up RM-Gen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-required-packages">Installing required packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/overpass_example_pipeline.html">Overpass example pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/pre_processed_osm_example_pipeline.html">Overpass example pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">rm_gen package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rm_gen.core">rm_gen.core module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.core.FeatureAcquisitionStep"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.FeatureAcquisitionStep.feature_name"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep.feature_name</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.FeatureAcquisitionStep.prepare"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep.prepare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.core.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline._steps"><code class="docutils literal notranslate"><span class="pre">Pipeline._steps</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline._logger"><code class="docutils literal notranslate"><span class="pre">Pipeline._logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline._cache_dir"><code class="docutils literal notranslate"><span class="pre">Pipeline._cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline._feature_names"><code class="docutils literal notranslate"><span class="pre">Pipeline._feature_names</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline.add_step"><code class="docutils literal notranslate"><span class="pre">Pipeline.add_step()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline.from_pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline.from_pipeline()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline.get_default_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.get_default_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline.run"><code class="docutils literal notranslate"><span class="pre">Pipeline.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline.set_cache_dir"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_cache_dir()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline.set_default_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_default_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline.set_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Pipeline.set_logger_level"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_logger_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.core.Step"><code class="docutils literal notranslate"><span class="pre">Step</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step._computed"><code class="docutils literal notranslate"><span class="pre">Step._computed</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step._cache_dir"><code class="docutils literal notranslate"><span class="pre">Step._cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step._logger"><code class="docutils literal notranslate"><span class="pre">Step._logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.cache_dir"><code class="docutils literal notranslate"><span class="pre">Step.cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.cache_dirs"><code class="docutils literal notranslate"><span class="pre">Step.cache_dirs()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.cache_keys"><code class="docutils literal notranslate"><span class="pre">Step.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.clean_cache"><code class="docutils literal notranslate"><span class="pre">Step.clean_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.compute"><code class="docutils literal notranslate"><span class="pre">Step.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.has_complete_cache"><code class="docutils literal notranslate"><span class="pre">Step.has_complete_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.load_cache"><code class="docutils literal notranslate"><span class="pre">Step.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.logger"><code class="docutils literal notranslate"><span class="pre">Step.logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.parse_ctx"><code class="docutils literal notranslate"><span class="pre">Step.parse_ctx()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.prepare"><code class="docutils literal notranslate"><span class="pre">Step.prepare()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.run"><code class="docutils literal notranslate"><span class="pre">Step.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.set_cache_dir"><code class="docutils literal notranslate"><span class="pre">Step.set_cache_dir()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.core.Step.set_logger"><code class="docutils literal notranslate"><span class="pre">Step.set_logger()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rm_gen.data_source">rm_gen.data_source module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromDownload"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromDownload.cache_keys"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromDownload.compute"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromDownload.load_cache"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromDownload.parse_ctx"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace.cache_keys"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace.compute"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace.load_cache"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace.parse_ctx"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.data_source.NaiveBuildingHeight"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.NaiveBuildingHeight.compute"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.NaiveBuildingHeight.parse_ctx"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.data_source.RandomBuildingHeight"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.RandomBuildingHeight.compute"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.data_source.RandomBuildingHeight.parse_ctx"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rm_gen.features">rm_gen.features module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.parse_ctx()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids.prepare"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.prepare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.features.FeatureTxHeightJsonOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxHeightJsonOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxHeightJsonOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxHeightJsonOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.features.FeatureTxHeightRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxHeightRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxHeightRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.features.FeatureTxHeightRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rm_gen.ground_truth">rm_gen.ground_truth module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rm_gen.ground_truth.SionnaRadiomapOnGrids"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.ground_truth.SionnaRadiomapOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.ground_truth.SionnaRadiomapOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rm_gen.ground_truth.SionnaRadiomapOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rm_gen.log_utils">rm_gen.log_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rm_gen">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RM-Gen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API Reference</a></li>
+      <li class="breadcrumb-item active">rm_gen package</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rm-gen-package">
+<h1>rm_gen package<a class="headerlink" href="#rm-gen-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-rm_gen.core">
+<span id="rm-gen-core-module"></span><h2>rm_gen.core module<a class="headerlink" href="#module-rm_gen.core" title="Link to this heading"></a></h2>
+<p>Core module for the rm_gen package.</p>
+<p>This module defines the core classes and functionalities for building
+a modular pipeline system, including steps for data processing and
+feature acquisition.</p>
+<p>Classes:</p>
+<ul class="simple">
+<li><p>Step: Base class for a pipeline step.</p></li>
+<li><p>FeatureAcquisitionStep: Specialized step for acquiring features.</p></li>
+<li><p>Pipeline: Class for managing and executing a sequence of steps.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.core.FeatureAcquisitionStep">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.core.</span></span><span class="sig-name descname"><span class="pre">FeatureAcquisitionStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#FeatureAcquisitionStep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.FeatureAcquisitionStep" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.Step" title="rm_gen.core.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<p>Specialized step for acquiring features.
+.. attribute:: feature_name</p>
+<blockquote>
+<div><p>Name of the feature being acquired.</p>
+<dl class="field-list simple">
+<dt class="field-odd">type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>An example of a feature acquisition step could be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyFeatureStep</span><span class="p">(</span><span class="n">FeatureAcquisitionStep</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">,</span> <span class="n">feature_name</span><span class="o">=</span><span class="s2">&quot;my_feature&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_ctx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_ctx</span><span class="p">):</span>
+        <span class="c1"># check if context has required data</span>
+        <span class="k">if</span> <span class="s2">&quot;required_data&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">raw_ctx</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Context must contain &#39;required_data&#39;&quot;</span><span class="p">)</span>
+        <span class="c1"># Parse the context here</span>
+        <span class="k">return</span> <span class="n">parsed_ctx</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="n">required_data</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">[</span><span class="s2">&quot;required_data&quot;</span><span class="p">]</span>
+        <span class="c1"># Compute the feature using required_data</span>
+        <span class="n">computed_feature</span> <span class="o">=</span> <span class="o">...</span>
+        <span class="c1"># return the computed feature to be added to the context</span>
+        <span class="c1"># it is impo</span>
+        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_name</span><span class="p">:</span> <span class="n">computed_feature</span><span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_dir</strong> (<em>Path</em>)</p></li>
+<li><p><strong>feature_name</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rm_gen.core.FeatureAcquisitionStep.feature_name">
+<span class="sig-name descname"><span class="pre">feature_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#rm_gen.core.FeatureAcquisitionStep.feature_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.FeatureAcquisitionStep.prepare">
+<span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#FeatureAcquisitionStep.prepare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.FeatureAcquisitionStep.prepare" title="Link to this definition"></a></dt>
+<dd><p>Prepare the step with the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to prepare the step with.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method can be overridden by subclasses to perform any
+necessary preparation before any step evaluation. This method
+is called before any others, e.g. before checking if the cache
+is complete.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.core.</span></span><span class="sig-name descname"><span class="pre">Pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for managing and executing a sequence of steps.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline._steps">
+<span class="sig-name descname"><span class="pre">_steps</span></span><a class="headerlink" href="#rm_gen.core.Pipeline._steps" title="Link to this definition"></a></dt>
+<dd><p>List of steps in the pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#rm_gen.core.Step" title="rm_gen.core.Step">Step</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><a class="headerlink" href="#rm_gen.core.Pipeline._logger" title="Link to this definition"></a></dt>
+<dd><p>Logger for logging messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_LoggerWithTQDM</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline._cache_dir">
+<span class="sig-name descname"><span class="pre">_cache_dir</span></span><a class="headerlink" href="#rm_gen.core.Pipeline._cache_dir" title="Link to this definition"></a></dt>
+<dd><p>Directory for caching results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline._feature_names">
+<span class="sig-name descname"><span class="pre">_feature_names</span></span><a class="headerlink" href="#rm_gen.core.Pipeline._feature_names" title="Link to this definition"></a></dt>
+<dd><p>List of feature names acquired</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">during</span> <span class="pre">the</span> <span class="pre">run.</span></span></dt>
+<dd></dd></dl>
+
+<p>A pipeline consists of multiple steps that are executed in order:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="n">StepA</span><span class="p">(),</span>
+    <span class="n">FeatureAcquisitionStepB</span><span class="p">(),</span>
+    <span class="n">StepC</span><span class="p">(),</span>
+<span class="p">])</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./cache&quot;</span><span class="p">))</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="n">another_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="n">StepD</span><span class="p">(),</span>
+    <span class="n">FeatureAcquisitionStepE</span><span class="p">(),</span>
+<span class="p">])</span>
+<span class="n">another_pipeline</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./another_cache&quot;</span><span class="p">))</span>
+<span class="c1"># you may pass the context from the previous pipeline run</span>
+<span class="c1"># effectively chaining pipelines</span>
+<span class="n">another_result</span> <span class="o">=</span> <span class="n">another_pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>The pipeline logger and cache directory can be set for the entire pipeline,
+and will be propagated to each step unless the step already has its own
+logger or cache directory set.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline.add_step">
+<span class="sig-name descname"><span class="pre">add_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline.add_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline.add_step" title="Link to this definition"></a></dt>
+<dd><p>Add a step to the pipeline.
+:type step: <span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#rm_gen.core.Step" title="rm_gen.core.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">rm_gen.core.Step</span></code></a></span>
+:param step: The step to be added to the pipeline.
+:type step: Step</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>step</strong> (<a class="reference internal" href="#rm_gen.core.Step" title="rm_gen.core.Step"><em>Step</em></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline.from_pipeline">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipeline</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline.from_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline.from_pipeline" title="Link to this definition"></a></dt>
+<dd><p>Create a new Pipeline instance from an existing one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pipeline</strong> (<a class="reference internal" href="#rm_gen.core.Pipeline" title="rm_gen.core.Pipeline"><em>Pipeline</em></a>) – The existing pipeline to copy.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Pipeline instance with the same steps, logger,
+cache directory, and feature names.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#rm_gen.core.Pipeline" title="rm_gen.core.Pipeline">Pipeline</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline.get_default_logger">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_default_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline.get_default_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline.get_default_logger" title="Link to this definition"></a></dt>
+<dd><p>“Get the default logger used by the pipelines.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline.run" title="Link to this definition"></a></dt>
+<dd><p>Run the pipeline with the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>dict</em><em>, </em><em>optional</em>) – The initial context to run the pipeline with.
+Defaults to an empty dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the final context and
+the list of feature names acquired during the run.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Each step in the pipeline will be executed in order.
+If a step does not have a logger or cache directory set,
+it will inherit the pipeline’s logger and cache directory.</p>
+<p>The returned dictionary has the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">final_context</span><span class="p">,</span>
+    <span class="s2">&quot;feature_names&quot;</span><span class="p">:</span> <span class="n">list_of_feature_names</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where <cite>final_context</cite> is the context after all steps have been executed,
+and <cite>list_of_feature_names</cite> is a list of feature names acquired
+during the pipeline run.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline.set_cache_dir">
+<span class="sig-name descname"><span class="pre">set_cache_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline.set_cache_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline.set_cache_dir" title="Link to this definition"></a></dt>
+<dd><p>Set the cache directory for the pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache_dir</strong> (<em>Path</em>) – The base directory for storing cache.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to force steps to use the passed cache directory.
+Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline.set_default_logger">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_default_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline.set_default_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline.set_default_logger" title="Link to this definition"></a></dt>
+<dd><p>”
+Set the default logger used by the pipelines created posteriorly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>logger</strong> (<em>logging.Logger</em>) – The logger to be used as the default logger.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method sets the default logger for all pipelines
+created after this call. Existing pipelines are not affected.</p>
+<p>Be careful when using this method in any kind of complex application,
+as it may lead to unexpected logging behavior.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline.set_logger">
+<span class="sig-name descname"><span class="pre">set_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline.set_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline.set_logger" title="Link to this definition"></a></dt>
+<dd><p>Wraps the provided logger and sets it for the pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>logger</strong> (<em>logging.Logger</em>) – The logger to be used by the pipeline.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Pipeline.set_logger_level">
+<span class="sig-name descname"><span class="pre">set_logger_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Pipeline.set_logger_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Pipeline.set_logger_level" title="Link to this definition"></a></dt>
+<dd><p>Set the logging level for the pipeline’s logger.
+:type level: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>
+:param level: The logging level to set (e.g., logging.INFO, “DEBUG”).
+:type level: int | str</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>level</strong> (<em>int</em><em> | </em><em>str</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.core.Step">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.core.</span></span><span class="sig-name descname"><span class="pre">Step</span></span><a class="reference internal" href="../_modules/rm_gen/core.html#Step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Base class for a pipeline step.
+Each step can prepare its context, check for cached results,
+compute new results, and load cached results if available.</p>
+<p>Each step is responsible for defining its own cache keys,
+how to parse the context it receives, how to compute results,
+and how to store and load cached results.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rm_gen.core.Step._computed">
+<span class="sig-name descname"><span class="pre">_computed</span></span><a class="headerlink" href="#rm_gen.core.Step._computed" title="Link to this definition"></a></dt>
+<dd><p>Flag indicating if the step has been computed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rm_gen.core.Step._cache_dir">
+<span class="sig-name descname"><span class="pre">_cache_dir</span></span><a class="headerlink" href="#rm_gen.core.Step._cache_dir" title="Link to this definition"></a></dt>
+<dd><p>Directory for caching results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rm_gen.core.Step._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><a class="headerlink" href="#rm_gen.core.Step._logger" title="Link to this definition"></a></dt>
+<dd><p>Logger for logging messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_LoggerWithTQDM</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rm_gen.core.Step.cache_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cache_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#rm_gen.core.Step.cache_dir" title="Link to this definition"></a></dt>
+<dd><p>Get the cache directory for the step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The cache directory for the step.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.cache_dirs">
+<span class="sig-name descname"><span class="pre">cache_dirs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.cache_dirs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.cache_dirs" title="Link to this definition"></a></dt>
+<dd><p>Get the cache directories for the given keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keys</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of cache keys.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of paths corresponding to the cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[Path]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.cache_keys">
+<span class="sig-name descname"><span class="pre">cache_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.cache_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.cache_keys" title="Link to this definition"></a></dt>
+<dd><p>Get the cache keys for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to get the cache keys for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.clean_cache">
+<span class="sig-name descname"><span class="pre">clean_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.clean_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.clean_cache" title="Link to this definition"></a></dt>
+<dd><p>Clean the cache for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to clean the cache for.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.has_complete_cache">
+<span class="sig-name descname"><span class="pre">has_complete_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.has_complete_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.has_complete_cache" title="Link to this definition"></a></dt>
+<dd><p>Check if the cache is complete for the given keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keys</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of cache keys.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if all cache directories or files exist, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function is used to determine if the step needs to recompute
+its results or if it can load them from the cache.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.load_cache">
+<span class="sig-name descname"><span class="pre">load_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.load_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.load_cache" title="Link to this definition"></a></dt>
+<dd><p>“Load the cached results for the given keys.
+:type keys: 
+:param keys: List of cache keys.
+:type keys: list[str]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The cached results.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rm_gen.core.Step.logger">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#rm_gen.core.Step.logger" title="Link to this definition"></a></dt>
+<dd><p>Get the cache directory for the step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The cache directory for the step.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.prepare">
+<span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.prepare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.prepare" title="Link to this definition"></a></dt>
+<dd><p>Prepare the step with the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to prepare the step with.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method can be overridden by subclasses to perform any
+necessary preparation before any step evaluation. This method
+is called before any others, e.g. before checking if the cache
+is complete.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.run" title="Link to this definition"></a></dt>
+<dd><p>Run the step with the given raw context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_ctx</strong> (<em>dict</em>) – The raw context to run the step with.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated context after running the step.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.set_cache_dir">
+<span class="sig-name descname"><span class="pre">set_cache_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append_clname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.set_cache_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.set_cache_dir" title="Link to this definition"></a></dt>
+<dd><p>Set the cache directory for the step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache_dir</strong> (<em>Path</em>) – The base directory for storing cache.</p></li>
+<li><p><strong>append_clname</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to append the class name to the cache directory.
+Defaults to True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.core.Step.set_logger">
+<span class="sig-name descname"><span class="pre">set_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/core.html#Step.set_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.core.Step.set_logger" title="Link to this definition"></a></dt>
+<dd><p>Set the logger for the step.
+:type logger: 
+:param logger: The logger to be used by the step.
+:type logger: logging.Logger</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rm_gen.data_source">
+<span id="rm-gen-data-source-module"></span><h2>rm_gen.data_source module<a class="headerlink" href="#module-rm_gen.data_source" title="Link to this heading"></a></h2>
+<p>This module contains data source steps for downloading and processing
+building footprints from OpenStreetMap (OSM) data, as well as steps
+for assigning building heights.</p>
+<p>Its purpose is to fetch geospatial data for the RM-Gen pipeline.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromDownload">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.data_source.</span></span><span class="sig-name descname"><span class="pre">BuildingFootprintFromDownload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">download_link</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlat_bounding_box</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromDownload"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromDownload" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.Step" title="rm_gen.core.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<p>Downloads OSM data from a given link, applies a bounding box,
+filters for building footprints, and adds to context a geopandas.GeoDataFrame
+with buildings footprint (w/ height when possible).</p>
+<p class="rubric">Notes</p>
+<p>Requires <cite>osmium</cite> command line tool to be installed.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">step</span> <span class="o">=</span> <span class="n">BuildingFootprintFromDownload</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">download_link</span><span class="o">=</span><span class="s2">&quot;download.geofabrik.de/south-america/brazil/sudeste-latest.osm.pbf&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">lonlat_bounding_box</span><span class="o">=</span><span class="p">((</span><span class="o">-</span><span class="mf">43.2319</span><span class="p">,</span> <span class="o">-</span><span class="mf">22.99</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">43.190</span><span class="p">,</span> <span class="o">-</span><span class="mf">22.96</span><span class="p">))</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>download_link</strong> (<em>str</em>)</p></li>
+<li><p><strong>lonlat_bounding_box</strong> (<em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromDownload.cache_keys">
+<span class="sig-name descname"><span class="pre">cache_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromDownload.cache_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromDownload.cache_keys" title="Link to this definition"></a></dt>
+<dd><p>Get the cache keys for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to get the cache keys for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromDownload.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromDownload.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromDownload.compute" title="Link to this definition"></a></dt>
+<dd><p>Downloads OSM data, applies bounding box, filters for buildings,
+and extracts building footprints into a GeoDataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>dict</em>) – The context dictionary (not used in this step).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary with a single key ‘building_footprints’
+containing a geopandas.GeoDataFrame of building footprints.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromDownload.load_cache">
+<span class="sig-name descname"><span class="pre">load_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromDownload.load_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromDownload.load_cache" title="Link to this definition"></a></dt>
+<dd><p>“Load the cached results for the given keys.
+:type keys: 
+:param keys: List of cache keys.
+:type keys: list[str]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The cached results.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromDownload.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromDownload.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromDownload.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromOSMPlace">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.data_source.</span></span><span class="sig-name descname"><span class="pre">BuildingFootprintFromOSMPlace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">place_query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromOSMPlace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.Step" title="rm_gen.core.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<p>Downloads building footprints from OSM, using OverPass API,
+for a given place query and adds to context a geopandas.GeoDataFrame
+with buildings footprint (w/ height when possible).</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">step</span> <span class="o">=</span> <span class="n">BuildingFootprintFromOSMPlace</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">place_query</span><span class="o">=</span><span class="s2">&quot;Plano Piloto, Brasília, DF, Brasil&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>place_query</strong> (<em>str</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromOSMPlace.cache_keys">
+<span class="sig-name descname"><span class="pre">cache_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromOSMPlace.cache_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace.cache_keys" title="Link to this definition"></a></dt>
+<dd><p>Get the cache keys for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to get the cache keys for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromOSMPlace.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromOSMPlace.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromOSMPlace.load_cache">
+<span class="sig-name descname"><span class="pre">load_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromOSMPlace.load_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace.load_cache" title="Link to this definition"></a></dt>
+<dd><p>“Load the cached results for the given keys.
+:type keys: 
+:param keys: List of cache keys.
+:type keys: list[str]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The cached results.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.BuildingFootprintFromOSMPlace.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#BuildingFootprintFromOSMPlace.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.BuildingFootprintFromOSMPlace.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.data_source.NaiveBuildingHeight">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.data_source.</span></span><span class="sig-name descname"><span class="pre">NaiveBuildingHeight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#NaiveBuildingHeight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.NaiveBuildingHeight" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.Step" title="rm_gen.core.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<p>Decide on building height for posterior extrusion</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.NaiveBuildingHeight.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#NaiveBuildingHeight.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.NaiveBuildingHeight.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.NaiveBuildingHeight.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#NaiveBuildingHeight.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.NaiveBuildingHeight.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.data_source.RandomBuildingHeight">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.data_source.</span></span><span class="sig-name descname"><span class="pre">RandomBuildingHeight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">19.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#RandomBuildingHeight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.RandomBuildingHeight" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.Step" title="rm_gen.core.Step"><code class="xref py py-class docutils literal notranslate"><span class="pre">Step</span></code></a></p>
+<p>Decide on building height for posterior extrusion</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.RandomBuildingHeight.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#RandomBuildingHeight.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.RandomBuildingHeight.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.data_source.RandomBuildingHeight.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/data_source.html#RandomBuildingHeight.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.data_source.RandomBuildingHeight.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rm_gen.features">
+<span id="rm-gen-features-module"></span><h2>rm_gen.features module<a class="headerlink" href="#module-rm_gen.features" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureBuildingHeightRasterOnGrids">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.features.</span></span><span class="sig-name descname"><span class="pre">FeatureBuildingHeightRasterOnGrids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'building_height'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_when_perc_of_building_less_than</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureBuildingHeightRasterOnGrids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.FeatureAcquisitionStep" title="rm_gen.core.FeatureAcquisitionStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_dir</strong> (<em>Path</em>)</p></li>
+<li><p><strong>min_h</strong> (<em>float</em>)</p></li>
+<li><p><strong>max_h</strong> (<em>float</em>)</p></li>
+<li><p><strong>feature_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>mask_when_perc_of_building_less_than</strong> (<em>float</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureBuildingHeightRasterOnGrids.cache_keys">
+<span class="sig-name descname"><span class="pre">cache_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureBuildingHeightRasterOnGrids.cache_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids.cache_keys" title="Link to this definition"></a></dt>
+<dd><p>Get the cache keys for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to get the cache keys for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureBuildingHeightRasterOnGrids.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureBuildingHeightRasterOnGrids.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureBuildingHeightRasterOnGrids.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureBuildingHeightRasterOnGrids.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureBuildingHeightRasterOnGrids.prepare">
+<span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureBuildingHeightRasterOnGrids.prepare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureBuildingHeightRasterOnGrids.prepare" title="Link to this definition"></a></dt>
+<dd><p>Prepare the step with the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to prepare the step with.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method can be overridden by subclasses to perform any
+necessary preparation before any step evaluation. This method
+is called before any others, e.g. before checking if the cache
+is complete.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.features.</span></span><span class="sig-name descname"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_gain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_gain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tx_fspl'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxFreeSpaceGainRasterOnGrids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.FeatureAcquisitionStep" title="rm_gen.core.FeatureAcquisitionStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_dir</strong> (<em>Path</em>)</p></li>
+<li><p><strong>frequency</strong> (<em>float</em>)</p></li>
+<li><p><strong>rx_h</strong> (<em>float</em>)</p></li>
+<li><p><strong>min_gain</strong> (<em>float</em>)</p></li>
+<li><p><strong>max_gain</strong> (<em>float</em>)</p></li>
+<li><p><strong>feature_name</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.cache_keys">
+<span class="sig-name descname"><span class="pre">cache_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxFreeSpaceGainRasterOnGrids.cache_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.cache_keys" title="Link to this definition"></a></dt>
+<dd><p>Get the cache keys for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to get the cache keys for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxFreeSpaceGainRasterOnGrids.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxHeightJsonOnGrids">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.features.</span></span><span class="sig-name descname"><span class="pre">FeatureTxHeightJsonOnGrids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tx_height'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_when_num_of_tx_less_than</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxHeightJsonOnGrids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxHeightJsonOnGrids" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.FeatureAcquisitionStep" title="rm_gen.core.FeatureAcquisitionStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_dir</strong> (<em>Path</em>)</p></li>
+<li><p><strong>feature_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>mask_when_num_of_tx_less_than</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxHeightJsonOnGrids.cache_keys">
+<span class="sig-name descname"><span class="pre">cache_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxHeightJsonOnGrids.cache_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxHeightJsonOnGrids.cache_keys" title="Link to this definition"></a></dt>
+<dd><p>Get the cache keys for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to get the cache keys for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxHeightJsonOnGrids.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxHeightJsonOnGrids.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxHeightJsonOnGrids.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxHeightJsonOnGrids.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxHeightJsonOnGrids.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxHeightJsonOnGrids.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxHeightRasterOnGrids">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.features.</span></span><span class="sig-name descname"><span class="pre">FeatureTxHeightRasterOnGrids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tx_height'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_when_num_of_tx_less_than</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxHeightRasterOnGrids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxHeightRasterOnGrids" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.FeatureAcquisitionStep" title="rm_gen.core.FeatureAcquisitionStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_dir</strong> (<em>Path</em>)</p></li>
+<li><p><strong>min_h</strong> (<em>float</em>)</p></li>
+<li><p><strong>max_h</strong> (<em>float</em>)</p></li>
+<li><p><strong>feature_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>mask_when_num_of_tx_less_than</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxHeightRasterOnGrids.cache_keys">
+<span class="sig-name descname"><span class="pre">cache_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxHeightRasterOnGrids.cache_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxHeightRasterOnGrids.cache_keys" title="Link to this definition"></a></dt>
+<dd><p>Get the cache keys for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to get the cache keys for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxHeightRasterOnGrids.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxHeightRasterOnGrids.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxHeightRasterOnGrids.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.features.FeatureTxHeightRasterOnGrids.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/features.html#FeatureTxHeightRasterOnGrids.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.features.FeatureTxHeightRasterOnGrids.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rm_gen.ground_truth">
+<span id="rm-gen-ground-truth-module"></span><h2>rm_gen.ground_truth module<a class="headerlink" href="#module-rm_gen.ground_truth" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rm_gen.ground_truth.SionnaRadiomapOnGrids">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rm_gen.ground_truth.</span></span><span class="sig-name descname"><span class="pre">SionnaRadiomapOnGrids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_rays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_interactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_gain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_gain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/ground_truth.html#SionnaRadiomapOnGrids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.ground_truth.SionnaRadiomapOnGrids" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rm_gen.core.FeatureAcquisitionStep" title="rm_gen.core.FeatureAcquisitionStep"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a></p>
+<p>Generates ground truth radiomap on grids using Sionna.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_dir</strong> (<em>Path</em>)</p></li>
+<li><p><strong>frequency</strong> (<em>float</em>)</p></li>
+<li><p><strong>bandwidth</strong> (<em>float</em>)</p></li>
+<li><p><strong>number_of_rays</strong> (<em>int</em>)</p></li>
+<li><p><strong>number_of_interactions</strong> (<em>int</em>)</p></li>
+<li><p><strong>min_gain</strong> (<em>float</em>)</p></li>
+<li><p><strong>max_gain</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.ground_truth.SionnaRadiomapOnGrids.cache_keys">
+<span class="sig-name descname"><span class="pre">cache_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/ground_truth.html#SionnaRadiomapOnGrids.cache_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.ground_truth.SionnaRadiomapOnGrids.cache_keys" title="Link to this definition"></a></dt>
+<dd><p>Get the cache keys for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to get the cache keys for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cache keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.ground_truth.SionnaRadiomapOnGrids.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/ground_truth.html#SionnaRadiomapOnGrids.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.ground_truth.SionnaRadiomapOnGrids.compute" title="Link to this definition"></a></dt>
+<dd><p>Compute the results for the given context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – The context, as determined by the parse_ctx method,
+to compute the results for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rm_gen.ground_truth.SionnaRadiomapOnGrids.parse_ctx">
+<span class="sig-name descname"><span class="pre">parse_ctx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rm_gen/ground_truth.html#SionnaRadiomapOnGrids.parse_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rm_gen.ground_truth.SionnaRadiomapOnGrids.parse_ctx" title="Link to this definition"></a></dt>
+<dd><p>“Parse the raw context into the format required by the step.
+:type raw_ctx: 
+:param raw_ctx: The raw context to parse.
+:type raw_ctx: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parsed context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rm_gen.log_utils">
+<span id="rm-gen-log-utils-module"></span><h2>rm_gen.log_utils module<a class="headerlink" href="#module-rm_gen.log_utils" title="Link to this heading"></a></h2>
+</section>
+<section id="module-rm_gen">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-rm_gen" title="Link to this heading"></a></h2>
+<p>RM-Gen: Tools for generating radiomap datasets for AI training.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Artur Padovesi Piratelli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

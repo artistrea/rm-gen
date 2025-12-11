@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overpass example pipeline &mdash; RM-Gen 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RM-Gen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Setting up RM-Gen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-required-packages">Installing required packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/rm_gen.html">rm_gen package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/rm_gen.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/rm_gen.html#module-rm_gen.core">rm_gen.core module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep.feature_name"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep.feature_name</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep.prepare"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep.prepare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline._steps"><code class="docutils literal notranslate"><span class="pre">Pipeline._steps</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline._logger"><code class="docutils literal notranslate"><span class="pre">Pipeline._logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline._cache_dir"><code class="docutils literal notranslate"><span class="pre">Pipeline._cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline._feature_names"><code class="docutils literal notranslate"><span class="pre">Pipeline._feature_names</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline.add_step"><code class="docutils literal notranslate"><span class="pre">Pipeline.add_step()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline.from_pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline.from_pipeline()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline.get_default_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.get_default_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline.run"><code class="docutils literal notranslate"><span class="pre">Pipeline.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline.set_cache_dir"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_cache_dir()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline.set_default_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_default_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline.set_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Pipeline.set_logger_level"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_logger_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step"><code class="docutils literal notranslate"><span class="pre">Step</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step._computed"><code class="docutils literal notranslate"><span class="pre">Step._computed</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step._cache_dir"><code class="docutils literal notranslate"><span class="pre">Step._cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step._logger"><code class="docutils literal notranslate"><span class="pre">Step._logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.cache_dir"><code class="docutils literal notranslate"><span class="pre">Step.cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.cache_dirs"><code class="docutils literal notranslate"><span class="pre">Step.cache_dirs()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.cache_keys"><code class="docutils literal notranslate"><span class="pre">Step.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.clean_cache"><code class="docutils literal notranslate"><span class="pre">Step.clean_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.compute"><code class="docutils literal notranslate"><span class="pre">Step.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.has_complete_cache"><code class="docutils literal notranslate"><span class="pre">Step.has_complete_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.load_cache"><code class="docutils literal notranslate"><span class="pre">Step.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.logger"><code class="docutils literal notranslate"><span class="pre">Step.logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.parse_ctx"><code class="docutils literal notranslate"><span class="pre">Step.parse_ctx()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.prepare"><code class="docutils literal notranslate"><span class="pre">Step.prepare()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.run"><code class="docutils literal notranslate"><span class="pre">Step.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.set_cache_dir"><code class="docutils literal notranslate"><span class="pre">Step.set_cache_dir()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.core.Step.set_logger"><code class="docutils literal notranslate"><span class="pre">Step.set_logger()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/rm_gen.html#module-rm_gen.data_source">rm_gen.data_source module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.cache_keys"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.compute"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.load_cache"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.parse_ctx"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.cache_keys"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.compute"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.load_cache"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.parse_ctx"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight.compute"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight.parse_ctx"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight.compute"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight.parse_ctx"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/rm_gen.html#module-rm_gen.features">rm_gen.features module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.parse_ctx()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.prepare"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.prepare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/rm_gen.html#module-rm_gen.ground_truth">rm_gen.ground_truth module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/rm_gen.html#module-rm_gen.log_utils">rm_gen.log_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/rm_gen.html#module-rm_gen">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RM-Gen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overpass example pipeline</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Overpass-example-pipeline">
+<h1>Overpass example pipeline<a class="headerlink" href="#Overpass-example-pipeline" title="Link to this heading"></a></h1>
+<p>This pipeline generates a dataset with path gain information by Sionna RT and features in 256x256 windows.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">rm_gen</span><span class="w"> </span><span class="kn">import</span> <span class="n">data_manipulation</span><span class="p">,</span> <span class="n">data_source</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">ground_truth</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rm_gen.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># OPTIONAL: Set up a custom logger for the pipeline</span>
+<span class="c1"># use debug level for more detailed output</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;rm_gen_pipeline_logger&quot;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="c1"># logger.setLevel(logging.DEBUG)</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+<span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%(levelname)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">))</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+<span class="n">Pipeline</span><span class="o">.</span><span class="n">set_default_logger</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CREATING SCENARIO DEFINITION PIPELINE</span>
+
+<span class="c1">############################################</span>
+<span class="c1"># place to get building footprints from OSM</span>
+<span class="n">building_footprints_source_step</span> <span class="o">=</span> <span class="n">data_source</span><span class="o">.</span><span class="n">BuildingFootprintFromOSMPlace</span><span class="p">(</span>
+    <span class="n">place_query</span><span class="o">=</span><span class="s2">&quot;Plano Piloto, Brasília, DF, Brasil&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1">############################################</span>
+
+<span class="c1">############################################</span>
+<span class="c1"># defining the minimum and maximum building heights to be randomly assigned</span>
+<span class="c1"># to the building footprints obtained from OSM</span>
+<span class="n">building_heights_source_step</span> <span class="o">=</span> <span class="n">data_source</span><span class="o">.</span><span class="n">RandomBuildingHeight</span><span class="p">(</span>
+    <span class="n">min_height</span><span class="o">=</span><span class="mf">6.6</span><span class="p">,</span>
+    <span class="n">max_height</span><span class="o">=</span><span class="mf">19.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1">############################################</span>
+
+<span class="c1">############################################</span>
+<span class="c1"># this defines an axis aligned bounding box to be applied after transforming</span>
+<span class="c1"># building footprints to a local coordinate system (in meters)</span>
+<span class="n">local_coords_bbox</span> <span class="o">=</span> <span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="p">(</span><span class="mf">2e6</span><span class="p">,</span> <span class="mi">13643</span><span class="p">))</span>
+<span class="c1"># we actually just want to clip y axis because of some isolated buildings,</span>
+<span class="c1"># so we set a huge x range and a tighter y range</span>
+
+<span class="c1"># defining origin at bottom left makes defining this bbox easier</span>
+<span class="n">local_coords_origin_at</span> <span class="o">=</span> <span class="s2">&quot;bottom_left&quot;</span>
+
+<span class="n">local_coordinates_transformation_step</span> <span class="o">=</span> <span class="n">data_manipulation</span><span class="o">.</span><span class="n">BuildingFootprintToLocalCoords</span><span class="p">(</span>
+    <span class="n">local_coords_bbox</span><span class="o">=</span><span class="n">local_coords_bbox</span><span class="p">,</span>
+    <span class="n">origin_at</span><span class="o">=</span><span class="n">local_coords_origin_at</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1">############################################</span>
+
+<span class="c1">############################################</span>
+<span class="c1"># make 256x256 m grids with 256 m step</span>
+<span class="n">grid_len</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>  <span class="c1"># in meters</span>
+<span class="n">grid_step</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>  <span class="c1"># in meters</span>
+<span class="n">grid_resolution</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># in meters</span>
+
+<span class="n">grid_windows_generation_step</span> <span class="o">=</span> <span class="n">data_manipulation</span><span class="o">.</span><span class="n">GenerateScenariosInGrids</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="n">grid_resolution</span><span class="p">,</span>
+    <span class="n">grid_len</span><span class="o">=</span><span class="n">grid_len</span><span class="p">,</span>
+    <span class="n">grid_step</span><span class="o">=</span><span class="n">grid_step</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1">############################################</span>
+
+<span class="c1">############################################</span>
+<span class="c1"># transmitter positions will be generated on top of buildings</span>
+<span class="n">height_above_building</span> <span class="o">=</span> <span class="mf">3.0</span>  <span class="c1"># in meters</span>
+<span class="n">min_building_height_for_tx</span> <span class="o">=</span> <span class="mf">6.6</span>  <span class="c1"># in meters</span>
+<span class="n">step_between_tx_along_building_edge</span> <span class="o">=</span> <span class="mf">12.0</span>  <span class="c1"># in meters</span>
+<span class="n">transmitter_positions_generation_step</span> <span class="o">=</span> <span class="n">data_manipulation</span><span class="o">.</span><span class="n">GenerateCandidateTransmittersOnBuildings</span><span class="p">(</span>
+    <span class="n">height_above_building</span><span class="o">=</span><span class="n">height_above_building</span><span class="p">,</span>
+    <span class="n">min_building_height</span><span class="o">=</span><span class="n">min_building_height_for_tx</span><span class="p">,</span>
+    <span class="n">step</span><span class="o">=</span><span class="n">step_between_tx_along_building_edge</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1">############################################</span>
+
+
+<span class="n">scenario_definition_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="n">building_footprints_source_step</span><span class="p">,</span>
+    <span class="n">building_heights_source_step</span><span class="p">,</span>
+    <span class="c1">## Depends on building footprints</span>
+    <span class="n">local_coordinates_transformation_step</span><span class="p">,</span>
+    <span class="c1">## Depends on building footprints in local coords [m]</span>
+    <span class="n">transmitter_positions_generation_step</span><span class="p">,</span>
+    <span class="c1"># ## Depends on local coord sys</span>
+    <span class="n">grid_windows_generation_step</span><span class="p">,</span>
+<span class="p">])</span>
+
+<span class="n">scenario_definition_pipeline</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./cache/examples/overpass_example&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">scenario_definition_pipeline_results</span> <span class="o">=</span> <span class="n">scenario_definition_pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[INFO] Starting step BuildingFootprintFromOSMPlace
+[INFO] Number of building footprints loaded 7178
+[INFO] Starting step RandomBuildingHeight
+[INFO] Starting step BuildingFootprintToLocalCoords
+[INFO] Starting step GenerateCandidateTransmittersOnBuildings
+Generating candidate tx on buildings: 100%|██████████| 7101/7101 [00:08&lt;00:00, 837.31it/s]
+[INFO] Generated 84574 candidate transmitter locations
+[INFO] Starting step GenerateScenariosInGrids
+[INFO] Generated 3834 grids over local coordinate system
+Pipeline Steps: 100%|██████████| 5/5 [01:53&lt;00:00, 22.63s/it]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buildings</span> <span class="o">=</span> <span class="n">scenario_definition_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;local_building_footprints&quot;</span><span class="p">]</span>
+<span class="c1"># streets = ox.graph_from_place(place_query, network_type=&#39;drive&#39;)</span>
+<span class="c1"># streets = ox.project_graph(streets)</span>
+<span class="c1"># street_edges_utm = ox.graph_to_gdfs(streets, nodes=False)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+
+<span class="n">buildings</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># tx_pos.plot(ax=ax, edgecolor=&#39;red&#39;, facecolor=&#39;pink&#39;, label=&quot;Posição candidata para TX&quot;)</span>
+
+<span class="c1"># ax.set_xlim((256*19, 21*256))</span>
+<span class="c1"># ax.set_ylim((1536 + 5*256, 1536 + 7*256))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="c1"># ax.legend()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_overpass_example_pipeline_4_0.png" src="../_images/examples_overpass_example_pipeline_4_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./dataset/examples/overpass_dataset&quot;</span><span class="p">)</span>
+
+<span class="n">dataset_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># we add an epsilon margin so that if a building is exactly at min or max height,</span>
+<span class="c1"># it is still included in the dataset</span>
+<span class="n">min_repr_height</span> <span class="o">=</span> <span class="n">building_heights_source_step</span><span class="o">.</span><span class="n">min_height</span> <span class="o">-</span> <span class="mf">1e-3</span>
+<span class="n">max_repr_height</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">transmitter_positions_generation_step</span><span class="o">.</span><span class="n">height_above_building</span>
+    <span class="o">+</span> <span class="n">building_heights_source_step</span><span class="o">.</span><span class="n">max_height</span>
+    <span class="o">+</span> <span class="mf">1e-3</span>
+<span class="p">)</span>
+
+<span class="c1"># minimum percentage of building that must be present in a grid</span>
+<span class="c1"># to not mask the building height raster feature</span>
+<span class="c1"># (to avoid grids with very little building data, and thus very simple propagation scenarios)</span>
+<span class="n">mask_when_perc_of_building_less_than</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># 10%</span>
+
+<span class="c1"># to avoid grids with no transmitters at all (if for some reason they do appear),</span>
+<span class="c1"># we also mask the transmitter height raster feature</span>
+<span class="n">mask_when_num_of_tx_less_than</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># masking is applied by collecting the window indices</span>
+<span class="c1"># where the condition is not met, so that we can ignore them afterwards</span>
+
+<span class="n">features_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="n">features</span><span class="o">.</span><span class="n">FeatureBuildingHeightRasterOnGrids</span><span class="p">(</span>
+        <span class="n">dataset_dir</span><span class="o">=</span><span class="n">dataset_dir</span><span class="p">,</span>
+        <span class="n">min_h</span><span class="o">=</span><span class="n">min_repr_height</span><span class="p">,</span>
+        <span class="n">max_h</span><span class="o">=</span><span class="n">max_repr_height</span><span class="p">,</span>
+        <span class="n">mask_when_perc_of_building_less_than</span><span class="o">=</span><span class="n">mask_when_perc_of_building_less_than</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">features</span><span class="o">.</span><span class="n">FeatureTxHeightRasterOnGrids</span><span class="p">(</span>
+        <span class="n">dataset_dir</span><span class="o">=</span><span class="n">dataset_dir</span><span class="p">,</span>
+        <span class="n">min_h</span><span class="o">=</span><span class="n">min_repr_height</span><span class="p">,</span>
+        <span class="n">max_h</span><span class="o">=</span><span class="n">max_repr_height</span><span class="p">,</span>
+        <span class="n">mask_when_num_of_tx_less_than</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">features_pipeline</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./cache/examples/overpass_example&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">features_pipeline_results</span> <span class="o">=</span> <span class="n">features_pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+    <span class="c1"># passing the scenario definition context to the features pipeline</span>
+    <span class="n">scenario_definition_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[INFO] Starting step FeatureBuildingHeightRasterOnGrids
+[INFO] Saved building height feature grids to folder /home/artistreak/projects/personal/rm-gen/examples/dataset/examples/overpass_dataset/building_height_6.598999999999999_22.801000000000002
+[INFO] Starting step FeatureTxHeightRasterOnGrids
+Saving tx height feature grids: 100%|██████████| 3834/3834 [00:23&lt;00:00, 160.18it/s]
+[INFO] Saved tx height feature grids to folder /home/artistreak/projects/personal/rm-gen/examples/dataset/examples/overpass_dataset/tx_height_6.598999999999999_22.801000000000002
+Pipeline Steps: 100%|██████████| 2/2 [00:28&lt;00:00, 14.42s/it]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#########################</span>
+<span class="c1"># Now, we create the dataset feature structure</span>
+<span class="c1">#########################</span>
+<span class="n">total_num_of_samples</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">features_per_window</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">grid_definitions</span> <span class="o">=</span> <span class="n">scenario_definition_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;grid_definitions&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">grid_idx</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span>
+    <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid_definitions</span><span class="p">[</span><span class="s2">&quot;bboxes&quot;</span><span class="p">])),</span>
+    <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">grid_definitions</span><span class="p">[</span><span class="s2">&quot;bboxes&quot;</span><span class="p">])</span>
+<span class="p">):</span>
+    <span class="c1"># skip masked grids</span>
+    <span class="k">if</span> <span class="n">grid_idx</span> <span class="ow">in</span> <span class="n">grid_definitions</span><span class="p">[</span><span class="s2">&quot;dangerously_mutable__masked_indices&quot;</span><span class="p">]:</span>
+        <span class="k">continue</span>
+
+    <span class="n">feature_files</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">skip_samples</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">num_samples</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">features_pipeline_results</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">]:</span>
+        <span class="c1"># get feature files for this grid</span>
+        <span class="n">feature_acq</span> <span class="o">=</span> <span class="n">features_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="n">feature_name</span><span class="p">]</span>
+        <span class="n">feature_files_for_grid</span> <span class="o">=</span> <span class="n">feature_acq</span><span class="p">[</span><span class="s2">&quot;feature_files_for_grid&quot;</span><span class="p">]</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">feature_files_for_grid</span><span class="p">[</span><span class="n">grid_idx</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="c1"># make sure all features have some samples per grid</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">skip_samples</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+
+            <span class="c1"># make sure that, if they have multiple samples per grid,</span>
+            <span class="c1"># they have the same number of samples</span>
+            <span class="k">if</span> <span class="n">num_samples</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">num_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">num_samples</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Different number of samples for different features in the same grid&quot;</span>
+                <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">Path</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="c1"># or they have 1 sample per grid</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;get_feature_files_for_grid must return str or list of str&quot;</span><span class="p">)</span>
+
+        <span class="c1"># store feature files</span>
+        <span class="n">feature_files</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">Path</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">skip_samples</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+    <span class="n">total_num_of_samples</span> <span class="o">+=</span> <span class="n">num_samples</span>
+
+    <span class="n">features_per_window</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;grid_idx&quot;</span><span class="p">:</span> <span class="n">grid_idx</span><span class="p">,</span>
+        <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="n">feature_files</span><span class="p">,</span>
+        <span class="s2">&quot;num_samples&quot;</span><span class="p">:</span> <span class="n">num_samples</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total samples:&quot;</span><span class="p">,</span> <span class="n">total_num_of_samples</span><span class="p">)</span>
+<span class="c1"># now we need to save the dataset structure in a json file</span>
+<span class="n">L_max</span> <span class="o">=</span> <span class="mi">127</span>
+<span class="c1"># d_min = 6.6 + 3 - 1.5 # (min building height + tx height - rx height)</span>
+<span class="c1"># f = 7e9</span>
+<span class="c1"># fspl_min = 20 * np.log10(4 * np.pi / 3e8) + 20 * np.log10(d_min) + 20 * np.log10(f)</span>
+<span class="c1"># L_min = fspl_min</span>
+<span class="n">L_min</span> <span class="o">=</span> <span class="mi">67</span>
+
+<span class="n">dataset_structure</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;max_path_gain&quot;</span><span class="p">:</span> <span class="o">-</span><span class="n">L_min</span><span class="p">,</span>
+    <span class="s2">&quot;min_path_gain&quot;</span><span class="p">:</span> <span class="o">-</span><span class="n">L_max</span><span class="p">,</span>
+    <span class="s2">&quot;min_height&quot;</span><span class="p">:</span> <span class="n">building_heights_source_step</span><span class="o">.</span><span class="n">min_height</span><span class="p">,</span>
+    <span class="s2">&quot;max_height&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">building_heights_source_step</span><span class="o">.</span><span class="n">max_height</span>
+        <span class="o">+</span> <span class="n">transmitter_positions_generation_step</span><span class="o">.</span><span class="n">height_above_building</span>
+    <span class="p">),</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset_structure</span><span class="p">)</span>
+<span class="n">train_ratio</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">val_ratio</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">test_ratio</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="n">accumulated_samples</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">sample_idx</span><span class="p">,</span> <span class="n">pairing</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">features_per_window</span><span class="p">):</span>
+    <span class="n">num_samples</span> <span class="o">=</span> <span class="n">pairing</span><span class="p">[</span><span class="s2">&quot;num_samples&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">accumulated_samples</span> <span class="o">&lt;=</span> <span class="n">total_num_of_samples</span> <span class="o">*</span> <span class="n">train_ratio</span><span class="p">:</span>
+        <span class="n">split</span> <span class="o">=</span> <span class="s2">&quot;train&quot;</span>
+    <span class="k">elif</span> <span class="n">accumulated_samples</span> <span class="o">&lt;=</span> <span class="n">total_num_of_samples</span> <span class="o">*</span> <span class="p">(</span><span class="n">train_ratio</span> <span class="o">+</span> <span class="n">val_ratio</span><span class="p">):</span>
+        <span class="n">split</span> <span class="o">=</span> <span class="s2">&quot;val&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">split</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pairing</span><span class="p">[</span><span class="s2">&quot;num_samples&quot;</span><span class="p">]):</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">feature_name</span><span class="p">:</span> <span class="p">(</span>
+                <span class="n">pairing</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">][</span><span class="n">feature_name</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pairing</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">][</span><span class="n">feature_name</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">pairing</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">][</span><span class="n">feature_name</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">features_pipeline_results</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="n">dataset_structure</span><span class="p">[</span><span class="n">split</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+    <span class="n">accumulated_samples</span> <span class="o">+=</span> <span class="n">num_samples</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dataset_dir</span> <span class="o">/</span> <span class="s2">&quot;dataset_structure.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dataset_structure</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1">################################</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training samples: &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset_structure</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation samples: &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset_structure</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test samples: &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset_structure</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 3834/3834 [00:00&lt;00:00, 44690.19it/s]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Total samples: 67222
+{&#39;train&#39;: [], &#39;val&#39;: [], &#39;test&#39;: [], &#39;max_path_gain&#39;: -67, &#39;min_path_gain&#39;: -127, &#39;min_height&#39;: 6.6, &#39;max_height&#39;: 22.8}
+Training samples:  53915
+Validation samples:  6644
+Test samples:  6663
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">################################</span>
+<span class="c1"># CREATING SIMULATION PIPELINE</span>
+<span class="c1">################################</span>
+<span class="n">simulation_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="n">data_manipulation</span><span class="o">.</span><span class="n">CreateFullMitsubaScene</span><span class="p">(),</span>
+    <span class="n">ground_truth</span><span class="o">.</span><span class="n">SionnaRadiomapOnGrids</span><span class="p">(</span>
+        <span class="n">dataset_dir</span><span class="o">=</span><span class="n">dataset_dir</span><span class="p">,</span>
+        <span class="n">frequency</span><span class="o">=</span><span class="mf">7e9</span><span class="p">,</span>
+        <span class="c1"># honestly not needed for path gain calculation</span>
+        <span class="n">bandwidth</span><span class="o">=</span><span class="mf">10e6</span><span class="p">,</span>
+        <span class="n">number_of_rays</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">7</span><span class="p">,</span>
+        <span class="n">number_of_interactions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">min_gain</span><span class="o">=-</span><span class="n">L_max</span><span class="p">,</span>
+        <span class="n">max_gain</span><span class="o">=-</span><span class="n">L_min</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">simulation_pipeline</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./cache/examples/overpass_example&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1">######################################</span>
+<span class="c1"># artificially set to only run one simulation, for testing purposes</span>
+<span class="n">grid_definitions</span> <span class="o">=</span> <span class="n">features_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;grid_definitions&quot;</span><span class="p">]</span>
+
+<span class="n">inactive_indices</span> <span class="o">=</span> <span class="n">grid_definitions</span><span class="p">[</span><span class="s2">&quot;dangerously_mutable__masked_indices&quot;</span><span class="p">]</span>
+
+<span class="n">num_grids</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_definitions</span><span class="p">[</span><span class="s2">&quot;bboxes&quot;</span><span class="p">])</span>
+<span class="n">all_indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_grids</span><span class="p">)</span>
+<span class="n">positive_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">setdiff1d</span><span class="p">(</span><span class="n">all_indices</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">inactive_indices</span><span class="p">))</span>
+
+<span class="n">keep_positive</span> <span class="o">=</span> <span class="n">positive_indices</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="n">prev_definition</span> <span class="o">=</span> <span class="n">grid_definitions</span><span class="p">[</span><span class="s2">&quot;dangerously_mutable__masked_indices&quot;</span><span class="p">]</span>
+<span class="n">grid_definitions</span><span class="p">[</span><span class="s2">&quot;dangerously_mutable__masked_indices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+    <span class="nb">set</span><span class="p">(</span><span class="n">all_indices</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">keep_positive</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="c1">######################################</span>
+<span class="n">simulation_pipeline_results</span> <span class="o">=</span> <span class="n">simulation_pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+    <span class="n">features_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">grid_definitions</span><span class="p">[</span><span class="s2">&quot;dangerously_mutable__masked_indices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_definition</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[INFO] Starting step CreateFullMitsubaScene
+Creating building meshes: 100%|██████████| 7089/7089 [00:11&lt;00:00, 626.90it/s]
+[INFO] Skipping 0 buildings due to invalid geometry
+[INFO] Starting step SionnaRadiomapOnGrids
+Pipeline Steps:  50%|█████     | 1/2 [00:13&lt;00:13, 13.10s/it]
+
+
+
+
+
+
+
+Different tx positions: 100%|██████████| 7/7 [00:41&lt;00:00,  6.00s/it]
+
+
+
+
+
+
+
+
+Different tx positions: 100%|██████████| 7/7 [00:49&lt;00:00,  7.04s/it]
+Generating Sionna Radiomap on Grids: 100%|██████████| 3834/3834 [01:31&lt;00:00, 41.99it/s]
+[INFO] Saved tx height feature grids to folder /home/artistreak/projects/personal/rm-gen/examples/dataset/examples/overpass_dataset/sionna_ground_truth_-127_-67_2_10000000_7000000000.0
+Pipeline Steps: 100%|██████████| 2/2 [01:46&lt;00:00, 53.48s/it]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot features and ground truth for a sample grid</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">ground_truth_folder</span> <span class="o">=</span> <span class="n">simulation_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;sionna_ground_truth&quot;</span><span class="p">][</span><span class="s2">&quot;folder&quot;</span><span class="p">]</span>
+<span class="n">tx_height_map_folder</span> <span class="o">=</span> <span class="n">features_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;tx_height&quot;</span><span class="p">][</span><span class="s2">&quot;folder&quot;</span><span class="p">]</span>
+<span class="n">building_height_map_folder</span> <span class="o">=</span> <span class="n">features_pipeline_results</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;building_height&quot;</span><span class="p">][</span><span class="s2">&quot;folder&quot;</span><span class="p">]</span>
+
+<span class="n">grid_idx</span> <span class="o">=</span> <span class="n">keep_positive</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">tx_idx</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">ground_truth_file</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ground_truth_folder</span>
+    <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">grid_idx</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">tx_idx</span><span class="si">}</span><span class="s2">.png&quot;</span>
+<span class="p">)</span>
+<span class="n">tx_height_map_file</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">tx_height_map_folder</span>
+    <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">grid_idx</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">tx_idx</span><span class="si">}</span><span class="s2">.png&quot;</span>
+<span class="p">)</span>
+<span class="n">building_height_map_file</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">building_height_map_folder</span>
+    <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">grid_idx</span><span class="si">}</span><span class="s2">.png&quot;</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Building Height Map&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">building_height_map_file</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Tx Height Map&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">tx_height_map_file</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Ground Truth Path Gain Map&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">ground_truth_file</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_overpass_example_pipeline_8_0.png" src="../_images/examples_overpass_example_pipeline_8_0.png" />
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Artur Padovesi Piratelli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

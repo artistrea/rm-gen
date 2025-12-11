@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rm_gen.data_source &mdash; RM-Gen 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            RM-Gen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Setting up RM-Gen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installing-required-packages">Installing required packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/rm_gen.html">rm_gen package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.core">rm_gen.core module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep.feature_name"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep.feature_name</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep.prepare"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep.prepare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline._steps"><code class="docutils literal notranslate"><span class="pre">Pipeline._steps</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline._logger"><code class="docutils literal notranslate"><span class="pre">Pipeline._logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline._cache_dir"><code class="docutils literal notranslate"><span class="pre">Pipeline._cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline._feature_names"><code class="docutils literal notranslate"><span class="pre">Pipeline._feature_names</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.add_step"><code class="docutils literal notranslate"><span class="pre">Pipeline.add_step()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.from_pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline.from_pipeline()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.get_default_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.get_default_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.run"><code class="docutils literal notranslate"><span class="pre">Pipeline.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_cache_dir"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_cache_dir()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_default_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_default_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_logger_level"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_logger_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step"><code class="docutils literal notranslate"><span class="pre">Step</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step._computed"><code class="docutils literal notranslate"><span class="pre">Step._computed</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step._cache_dir"><code class="docutils literal notranslate"><span class="pre">Step._cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step._logger"><code class="docutils literal notranslate"><span class="pre">Step._logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.cache_dir"><code class="docutils literal notranslate"><span class="pre">Step.cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.cache_dirs"><code class="docutils literal notranslate"><span class="pre">Step.cache_dirs()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.cache_keys"><code class="docutils literal notranslate"><span class="pre">Step.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.clean_cache"><code class="docutils literal notranslate"><span class="pre">Step.clean_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.compute"><code class="docutils literal notranslate"><span class="pre">Step.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.has_complete_cache"><code class="docutils literal notranslate"><span class="pre">Step.has_complete_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.load_cache"><code class="docutils literal notranslate"><span class="pre">Step.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.logger"><code class="docutils literal notranslate"><span class="pre">Step.logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.parse_ctx"><code class="docutils literal notranslate"><span class="pre">Step.parse_ctx()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.prepare"><code class="docutils literal notranslate"><span class="pre">Step.prepare()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.run"><code class="docutils literal notranslate"><span class="pre">Step.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.set_cache_dir"><code class="docutils literal notranslate"><span class="pre">Step.set_cache_dir()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.set_logger"><code class="docutils literal notranslate"><span class="pre">Step.set_logger()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.data_source">rm_gen.data_source module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.cache_keys"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.compute"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.load_cache"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.parse_ctx"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.cache_keys"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.compute"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.load_cache"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.parse_ctx"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight.compute"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight.parse_ctx"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight.compute"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight.parse_ctx"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.features">rm_gen.features module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.parse_ctx()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.prepare"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.prepare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.ground_truth">rm_gen.ground_truth module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.log_utils">rm_gen.log_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">RM-Gen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">rm_gen.data_source</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for rm_gen.data_source</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains data source steps for downloading and processing</span>
+<span class="sd">building footprints from OpenStreetMap (OSM) data, as well as steps</span>
+<span class="sd">for assigning building heights.</span>
+
+<span class="sd">Its purpose is to fetch geospatial data for the RM-Gen pipeline.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">osmium</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shapely.wkb</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wkblib</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Step</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.log_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_LoggerWithTQDM</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">_LoggerWithTQDM</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Runs a command using subprocess.run and logs the command and any errors.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    command: list or str</span>
+<span class="sd">        The command to run as a list of arguments or a single string.</span>
+<span class="sd">    logger: _LoggerWithTQDM, optional</span>
+<span class="sd">        Logger to use for logging. Defaults to None.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">        Exception: Reraises any exception that occurs during command execution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">command_string</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">command</span>
+        <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;RUNNING: &quot;</span> <span class="o">+</span> <span class="n">command_string</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="n">command</span><span class="p">,</span>
+            <span class="c1"># shell=True,  # Set to True if the command is a string and needs shell processing</span>
+            <span class="c1"># capture_output=True,</span>
+            <span class="c1"># text=True,</span>
+            <span class="n">check</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+    <span class="c1"># pylint: disable=broad-except</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;COMMAND FAILED: &quot;</span> <span class="o">+</span> <span class="n">command_string</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">e</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_download_file</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">dst</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">,</span>
+    <span class="n">logger</span><span class="p">:</span> <span class="n">_LoggerWithTQDM</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downloads a file from a URL to a destination path with progress bar.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    url: str</span>
+<span class="sd">        The URL to download the file from.</span>
+<span class="sd">    dst: str</span>
+<span class="sd">        The destination path to save the downloaded file.</span>
+<span class="sd">    chunk_size: int, optional</span>
+<span class="sd">        The size of each chunk to read from the response. Defaults to 1 MB.</span>
+<span class="sd">    logger: _LoggerWithTQDM, optional</span>
+<span class="sd">        Logger to use for logging progress. Defaults to None.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        str: The path to the downloaded file.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">        Exception: Reraises any exception that occurs during download.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">        If the download is interrupted or fails, the partially downloaded file</span>
+<span class="sd">        is deleted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content-length&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dst</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">tqdm_progress_bar</span><span class="p">(</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">,</span>
+            <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
+            <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">unit_divisor</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">progress</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                    <span class="n">progress</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">))</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="n">e</span>
+    <span class="c1"># pylint: disable=broad-except</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">dst</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="n">e</span>
+
+    <span class="k">return</span> <span class="n">dst</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_OsmiumBuildingFootprintHandler</span><span class="p">(</span><span class="n">osmium</span><span class="o">.</span><span class="n">SimpleHandler</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Osmium handler to extract building footprints with height and levels</span>
+<span class="sd">    from OSM data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># pylint: disable=c-extension-no-member</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wkbfab</span> <span class="o">=</span> <span class="n">osmium</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">WKBFactory</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle an OSM area object to extract building footprint geometry and attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">wkb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wkbfab</span><span class="o">.</span><span class="n">create_multipolygon</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="c1"># pylint: disable=broad-except</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">geom_shape</span> <span class="o">=</span> <span class="n">wkblib</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">wkb</span><span class="p">,</span> <span class="nb">hex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">tags</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">tags</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">)</span>
+        <span class="n">levels</span> <span class="o">=</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;building:levels&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">geom_shape</span><span class="p">,</span>
+            <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+            <span class="s2">&quot;building:levels&quot;</span><span class="p">:</span> <span class="n">levels</span><span class="p">,</span>
+        <span class="p">})</span>
+
+
+<div class="viewcode-block" id="BuildingFootprintFromDownload">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BuildingFootprintFromDownload</span><span class="p">(</span><span class="n">Step</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downloads OSM data from a given link, applies a bounding box,</span>
+<span class="sd">    filters for building footprints, and adds to context a geopandas.GeoDataFrame</span>
+<span class="sd">    with buildings footprint (w/ height when possible).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">        Requires `osmium` command line tool to be installed.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">        &gt;&gt;&gt; step = BuildingFootprintFromDownload(</span>
+<span class="sd">        ...     download_link=&quot;download.geofabrik.de/south-america/brazil/sudeste-latest.osm.pbf&quot;,</span>
+<span class="sd">        ...     lonlat_bounding_box=((-43.2319, -22.99), (-43.190, -22.96))</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; result = step.run()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">download_link</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">lonlat_bounding_box</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span>
+            <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+            <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+        <span class="p">],</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        download_link: str</span>
+<span class="sd">            The URL to download the OSM data from.</span>
+<span class="sd">        lonlat_bounding_box: tuple of tuple of float</span>
+<span class="sd">            The bounding box to extract from the OSM data in</span>
+<span class="sd">            ((min_lon, min_lat), (max_lon, max_lat)) format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">download_link</span> <span class="o">=</span> <span class="n">download_link</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lonlat_bounding_box</span> <span class="o">=</span> <span class="n">lonlat_bounding_box</span>
+        <span class="k">if</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s2">&quot;osmium&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># what error to raise here?</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;You need to install osmium to be able to run this step&quot;</span>
+            <span class="p">)</span>
+
+<div class="viewcode-block" id="BuildingFootprintFromDownload.cache_keys">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.cache_keys">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cache_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_ctx</span><span class="p">):</span>
+        <span class="n">download_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">download_link</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+        <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonlat_bounding_box</span>
+        <span class="n">bbox_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span>
+            <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;---&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">download_link</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;downloads/</span><span class="si">{</span><span class="n">download_hash</span><span class="si">}</span><span class="s2">.pbf&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;processed/bbox/</span><span class="si">{</span><span class="n">bbox_hash</span><span class="si">}</span><span class="s2">.pbf&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;processed/building_fps/</span><span class="si">{</span><span class="n">bbox_hash</span><span class="si">}</span><span class="s2">.pbf&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;processed/building_fps/</span><span class="si">{</span><span class="n">bbox_hash</span><span class="si">}</span><span class="s2">.geojson&quot;</span><span class="p">,</span>
+        <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="BuildingFootprintFromDownload.load_cache">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.load_cache">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">fp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dirs</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Number of building footprints loaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;building_footprints&quot;</span><span class="p">:</span> <span class="n">gdf</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="BuildingFootprintFromDownload.parse_ctx">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.parse_ctx">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_ctx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_ctx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">raw_ctx</span></div>
+
+
+<div class="viewcode-block" id="BuildingFootprintFromDownload.compute">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.compute">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Downloads OSM data, applies bounding box, filters for buildings,</span>
+<span class="sd">        and extracts building footprints into a GeoDataFrame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ctx: dict</span>
+<span class="sd">            The context dictionary (not used in this step).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            A dictionary with a single key &#39;building_footprints&#39;</span>
+<span class="sd">            containing a geopandas.GeoDataFrame of building footprints.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_keys</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+        <span class="n">download_path</span><span class="p">,</span> <span class="n">bboxed_path</span><span class="p">,</span> <span class="n">buildings_path</span><span class="p">,</span> <span class="n">fp_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dirs</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">download_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Download OSM file&quot;</span><span class="p">)</span>
+            <span class="n">_download_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">download_link</span><span class="p">,</span> <span class="n">download_path</span><span class="p">,</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using cached downloaded OSM file&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bboxed_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Applying bbox on OSM data&quot;</span><span class="p">)</span>
+            <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonlat_bounding_box</span>
+            <span class="n">bbox_str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="p">])</span>
+            <span class="n">_run_command</span><span class="p">([</span><span class="s2">&quot;osmium&quot;</span><span class="p">,</span> <span class="s2">&quot;extract&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;-b&quot;</span><span class="p">,</span> <span class="n">bbox_str</span><span class="p">,</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">download_path</span><span class="p">),</span>
+                <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">bboxed_path</span><span class="p">),</span>
+                 <span class="c1"># &quot;--overwrite&quot;</span>
+            <span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using cached bbox applied OSM data&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">buildings_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Applying filter to get only buildings from OSM data&quot;</span><span class="p">)</span>
+            <span class="n">_run_command</span><span class="p">([</span><span class="s2">&quot;osmium&quot;</span><span class="p">,</span> <span class="s2">&quot;tags-filter&quot;</span><span class="p">,</span>
+                 <span class="nb">str</span><span class="p">(</span><span class="n">bboxed_path</span><span class="p">),</span>
+                 <span class="s2">&quot;nwr&quot;</span><span class="p">,</span> <span class="s2">&quot;building&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">buildings_path</span><span class="p">),</span>
+                 <span class="c1"># &quot;--overwrite&quot;</span>
+             <span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using cached filter with only buildings from OSM data&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fp_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Filtering only wanted properties and creating final GeoJSON&quot;</span><span class="p">)</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="n">_OsmiumBuildingFootprintHandler</span><span class="p">()</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">apply_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">buildings_path</span><span class="o">.</span><span class="n">resolve</span><span class="p">()))</span>
+
+            <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">gdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Place does not contain any buildings&quot;</span><span class="p">)</span>
+
+            <span class="c1"># get rid of bad labeling people do</span>
+            <span class="c1"># and only accept geometry with area as building</span>
+            <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                <span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span> <span class="o">&amp;</span>
+                <span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Polygon&#39;</span><span class="p">,</span><span class="s1">&#39;MultiPolygon&#39;</span><span class="p">])</span>
+            <span class="p">]</span>
+            <span class="n">gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">fp_path</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using cached final GeoJSON&quot;</span><span class="p">)</span>
+
+        <span class="n">fps</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Number of building footprints loaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fps</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;building_footprints&quot;</span><span class="p">:</span> <span class="n">fps</span><span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="BuildingFootprintFromOSMPlace">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BuildingFootprintFromOSMPlace</span><span class="p">(</span><span class="n">Step</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downloads building footprints from OSM, using OverPass API,</span>
+<span class="sd">    for a given place query and adds to context a geopandas.GeoDataFrame</span>
+<span class="sd">    with buildings footprint (w/ height when possible).</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">        &gt;&gt;&gt; step = BuildingFootprintFromOSMPlace(</span>
+<span class="sd">        ...     place_query=&quot;Plano Piloto, Brasília, DF, Brasil&quot;,</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; result = step.run()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">place_query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        place_query: str</span>
+<span class="sd">            The place query to search for buildings in OSM.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">place_query</span> <span class="o">=</span> <span class="n">place_query</span>
+
+<div class="viewcode-block" id="BuildingFootprintFromOSMPlace.cache_keys">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.cache_keys">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cache_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_ctx</span><span class="p">):</span>
+        <span class="n">place_query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">place_query</span>
+        <span class="c1"># place_query_hash = hashlib.md5(</span>
+        <span class="c1">#     self.place_query.encode()</span>
+        <span class="c1"># ).hexdigest()</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">place_query</span><span class="si">}</span><span class="s2">.geojson&quot;</span><span class="p">,</span>
+        <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="BuildingFootprintFromOSMPlace.load_cache">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.load_cache">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dirs</span><span class="p">(</span><span class="n">keys</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Number of building footprints loaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;building_footprints&quot;</span><span class="p">:</span> <span class="n">gdf</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="BuildingFootprintFromOSMPlace.parse_ctx">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.parse_ctx">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_ctx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_ctx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">raw_ctx</span></div>
+
+
+<div class="viewcode-block" id="BuildingFootprintFromOSMPlace.compute">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.compute">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_keys</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+        <span class="n">fp_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dirs</span><span class="p">(</span><span class="n">keys</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fp_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;building&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+            <span class="n">buildings</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">place_query</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">buildings</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Place does not contain any buildings&quot;</span><span class="p">)</span>
+
+            <span class="c1"># get rid of bad labeling people do</span>
+            <span class="c1"># and only accept geometry with area as building</span>
+            <span class="n">buildings</span> <span class="o">=</span> <span class="n">buildings</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                <span class="n">buildings</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span> <span class="o">&amp;</span>
+                <span class="n">buildings</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Polygon&#39;</span><span class="p">,</span><span class="s1">&#39;MultiPolygon&#39;</span><span class="p">])</span>
+            <span class="p">]</span>
+            <span class="n">buildings</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">fp_path</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
+        
+        <span class="n">fps</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Number of building footprints loaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fps</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;building_footprints&quot;</span><span class="p">:</span> <span class="n">fps</span><span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="RandomBuildingHeight">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RandomBuildingHeight</span><span class="p">(</span><span class="n">Step</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decide on building height for posterior extrusion</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">min_height</span><span class="o">=</span><span class="mf">6.6</span><span class="p">,</span>
+        <span class="n">max_height</span><span class="o">=</span><span class="mf">19.8</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height_per_level</span> <span class="o">=</span> <span class="mf">3.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_height</span> <span class="o">=</span> <span class="n">min_height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="n">max_height</span>
+
+<div class="viewcode-block" id="RandomBuildingHeight.parse_ctx">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight.parse_ctx">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_ctx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_ctx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;building_footprints&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">raw_ctx</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Context must contain &#39;building_footprints&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">raw_ctx</span></div>
+
+
+<div class="viewcode-block" id="RandomBuildingHeight.compute">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight.compute">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="n">building_fps</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">[</span><span class="s2">&quot;building_footprints&quot;</span><span class="p">]</span>
+
+        <span class="n">height</span> <span class="o">=</span> <span class="n">building_fps</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_height</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">height</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;building_heights&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">}</span></div>
+</div>
+
+
+<div class="viewcode-block" id="NaiveBuildingHeight">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NaiveBuildingHeight</span><span class="p">(</span><span class="n">Step</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decide on building height for posterior extrusion</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">default_height</span><span class="o">=</span><span class="mf">12.0</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height_per_level</span> <span class="o">=</span> <span class="mf">3.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_height</span> <span class="o">=</span> <span class="n">default_height</span>
+
+<div class="viewcode-block" id="NaiveBuildingHeight.parse_ctx">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight.parse_ctx">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_ctx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_ctx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;building_footprints&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">raw_ctx</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Context must contain &#39;building_footprints&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">raw_ctx</span></div>
+
+
+<div class="viewcode-block" id="NaiveBuildingHeight.compute">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight.compute">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="n">building_fps</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">[</span><span class="s2">&quot;building_footprints&quot;</span><span class="p">]</span>
+
+        <span class="n">height</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">building_fps</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+        <span class="n">levels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height_per_level</span> <span class="o">*</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
+            <span class="n">building_fps</span><span class="p">[</span><span class="s2">&quot;building:levels&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span>
+        <span class="p">)</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="n">height</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
+
+        <span class="n">nans</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+
+        <span class="n">h</span><span class="p">[</span><span class="n">nans</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_height</span>
+
+        <span class="n">height_m</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;building_heights&quot;</span><span class="p">:</span> <span class="n">height_m</span><span class="p">}</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Artur Padovesi Piratelli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

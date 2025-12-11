@@ -1,0 +1,818 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rm_gen.core &mdash; RM-Gen 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            RM-Gen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Setting up RM-Gen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installing-required-packages">Installing required packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/rm_gen.html">rm_gen package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.core">rm_gen.core module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep.feature_name"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep.feature_name</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep.prepare"><code class="docutils literal notranslate"><span class="pre">FeatureAcquisitionStep.prepare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline._steps"><code class="docutils literal notranslate"><span class="pre">Pipeline._steps</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline._logger"><code class="docutils literal notranslate"><span class="pre">Pipeline._logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline._cache_dir"><code class="docutils literal notranslate"><span class="pre">Pipeline._cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline._feature_names"><code class="docutils literal notranslate"><span class="pre">Pipeline._feature_names</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.add_step"><code class="docutils literal notranslate"><span class="pre">Pipeline.add_step()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.from_pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline.from_pipeline()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.get_default_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.get_default_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.run"><code class="docutils literal notranslate"><span class="pre">Pipeline.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_cache_dir"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_cache_dir()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_default_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_default_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_logger"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_logger()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_logger_level"><code class="docutils literal notranslate"><span class="pre">Pipeline.set_logger_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step"><code class="docutils literal notranslate"><span class="pre">Step</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step._computed"><code class="docutils literal notranslate"><span class="pre">Step._computed</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step._cache_dir"><code class="docutils literal notranslate"><span class="pre">Step._cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step._logger"><code class="docutils literal notranslate"><span class="pre">Step._logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.cache_dir"><code class="docutils literal notranslate"><span class="pre">Step.cache_dir</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.cache_dirs"><code class="docutils literal notranslate"><span class="pre">Step.cache_dirs()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.cache_keys"><code class="docutils literal notranslate"><span class="pre">Step.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.clean_cache"><code class="docutils literal notranslate"><span class="pre">Step.clean_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.compute"><code class="docutils literal notranslate"><span class="pre">Step.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.has_complete_cache"><code class="docutils literal notranslate"><span class="pre">Step.has_complete_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.load_cache"><code class="docutils literal notranslate"><span class="pre">Step.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.logger"><code class="docutils literal notranslate"><span class="pre">Step.logger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.parse_ctx"><code class="docutils literal notranslate"><span class="pre">Step.parse_ctx()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.prepare"><code class="docutils literal notranslate"><span class="pre">Step.prepare()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.run"><code class="docutils literal notranslate"><span class="pre">Step.run()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.set_cache_dir"><code class="docutils literal notranslate"><span class="pre">Step.set_cache_dir()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.core.Step.set_logger"><code class="docutils literal notranslate"><span class="pre">Step.set_logger()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.data_source">rm_gen.data_source module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.cache_keys"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.compute"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.load_cache"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromDownload.parse_ctx"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromDownload.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.cache_keys"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.compute"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.load_cache"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.load_cache()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.BuildingFootprintFromOSMPlace.parse_ctx"><code class="docutils literal notranslate"><span class="pre">BuildingFootprintFromOSMPlace.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight.compute"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.NaiveBuildingHeight.parse_ctx"><code class="docutils literal notranslate"><span class="pre">NaiveBuildingHeight.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight.compute"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.data_source.RandomBuildingHeight.parse_ctx"><code class="docutils literal notranslate"><span class="pre">RandomBuildingHeight.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.features">rm_gen.features module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.parse_ctx()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureBuildingHeightRasterOnGrids.prepare"><code class="docutils literal notranslate"><span class="pre">FeatureBuildingHeightRasterOnGrids.prepare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxFreeSpaceGainRasterOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightJsonOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightJsonOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.features.FeatureTxHeightRasterOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">FeatureTxHeightRasterOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.ground_truth">rm_gen.ground_truth module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.cache_keys"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.cache_keys()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.compute"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.compute()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/rm_gen.html#rm_gen.ground_truth.SionnaRadiomapOnGrids.parse_ctx"><code class="docutils literal notranslate"><span class="pre">SionnaRadiomapOnGrids.parse_ctx()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen.log_utils">rm_gen.log_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/rm_gen.html#module-rm_gen">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">RM-Gen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">rm_gen.core</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for rm_gen.core</h1><div class="highlight"><pre>
+<span></span><span class="c1"># help me write documentation so that sphinx can generate it</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Core module for the rm_gen package.</span>
+
+<span class="sd">This module defines the core classes and functionalities for building</span>
+<span class="sd">a modular pipeline system, including steps for data processing and</span>
+<span class="sd">feature acquisition.</span>
+
+<span class="sd">Classes:</span>
+
+<span class="sd">- Step: Base class for a pipeline step.</span>
+
+<span class="sd">- FeatureAcquisitionStep: Specialized step for acquiring features.</span>
+
+<span class="sd">- Pipeline: Class for managing and executing a sequence of steps.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.log_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_LoggerWithTQDM</span>
+
+
+<div class="viewcode-block" id="Step">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Step</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for a pipeline step.</span>
+<span class="sd">    Each step can prepare its context, check for cached results,</span>
+<span class="sd">    compute new results, and load cached results if available.</span>
+
+<span class="sd">    Each step is responsible for defining its own cache keys,</span>
+<span class="sd">    how to parse the context it receives, how to compute results,</span>
+<span class="sd">    and how to store and load cached results.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        _computed (bool): Flag indicating if the step has been computed.</span>
+<span class="sd">        _cache_dir (Path): Directory for caching results.</span>
+<span class="sd">        _logger (_LoggerWithTQDM): Logger for logging messages.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_computed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">_cache_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">_LoggerWithTQDM</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cache_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the cache directory for the step.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Path</span>
+<span class="sd">            The cache directory for the step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dir</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">logger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the cache directory for the step.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Path</span>
+<span class="sd">            The cache directory for the step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span>
+
+<div class="viewcode-block" id="Step.set_cache_dir">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.set_cache_dir">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_cache_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">append_clname</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the cache directory for the step.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cache_dir: Path</span>
+<span class="sd">            The base directory for storing cache.</span>
+<span class="sd">        append_clname: bool, optional</span>
+<span class="sd">            Whether to append the class name to the cache directory.</span>
+<span class="sd">            Defaults to True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">append_clname</span><span class="p">:</span>
+            <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Step.set_logger">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.set_logger">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the logger for the step.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        logger: logging.Logger</span>
+<span class="sd">            The logger to be used by the step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logger</span></div>
+
+
+<div class="viewcode-block" id="Step.cache_dirs">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.cache_dirs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cache_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the cache directories for the given keys.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        keys: list[str]</span>
+<span class="sd">            List of cache keys.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list[Path]</span>
+<span class="sd">            List of paths corresponding to the cache keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dir</span> <span class="o">/</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span>
+        <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Step.has_complete_cache">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.has_complete_cache">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">has_complete_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the cache is complete for the given keys.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        keys: list[str]</span>
+<span class="sd">            List of cache keys.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if all cache directories or files exist, False otherwise.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This function is used to determine if the step needs to recompute</span>
+<span class="sd">        its results or if it can load them from the cache.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dirs</span><span class="p">(</span><span class="n">keys</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Step.clean_cache">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.clean_cache">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clean_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean the cache for the given context.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ctx: typing.Any</span>
+<span class="sd">            The context, as determined by the parse_ctx method,</span>
+<span class="sd">            to clean the cache for.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_keys</span><span class="p">(</span><span class="n">ctx</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Step.cache_keys">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.cache_keys">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cache_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the cache keys for the given context.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ctx: typing.Any</span>
+<span class="sd">            The context, as determined by the parse_ctx method,</span>
+<span class="sd">            to get the cache keys for.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list[str]</span>
+<span class="sd">            List of cache keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="Step.prepare">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.prepare">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare the step with the given context.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ctx: typing.Any</span>
+<span class="sd">            The context, as determined by the parse_ctx method,</span>
+<span class="sd">            to prepare the step with.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method can be overridden by subclasses to perform any</span>
+<span class="sd">        necessary preparation before any step evaluation. This method</span>
+<span class="sd">        is called before any others, e.g. before checking if the cache</span>
+<span class="sd">        is complete.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="Step.load_cache">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.load_cache">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Load the cached results for the given keys.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        keys: list[str]</span>
+<span class="sd">            List of cache keys.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The cached results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Step.parse_ctx">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.parse_ctx">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_ctx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_ctx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Parse the raw context into the format required by the step.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        raw_ctx: dict</span>
+<span class="sd">            The raw context to parse.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        typing.Any</span>
+<span class="sd">            The parsed context.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Step.compute">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.compute">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the results for the given context.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ctx: typing.Any</span>
+<span class="sd">            The context, as determined by the parse_ctx method,</span>
+<span class="sd">            to compute the results for.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The computed results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Step.run">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Step.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_ctx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the step with the given raw context.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        raw_ctx: dict</span>
+<span class="sd">            The raw context to run the step with.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The updated context after running the step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_ctx</span><span class="p">(</span><span class="n">raw_ctx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+        <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_keys</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_complete_cache</span><span class="p">(</span><span class="n">keys</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Loading return cache&quot;</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_cache</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dirs</span><span class="p">(</span><span class="n">keys</span><span class="p">):</span>
+                <span class="n">d</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Adding &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; to context&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">raw_ctx</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Key </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> already exists in context: &quot;</span> <span class="o">+</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Key </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> already exists in context&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">raw_ctx</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FeatureAcquisitionStep">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FeatureAcquisitionStep</span><span class="p">(</span><span class="n">Step</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Specialized step for acquiring features.</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        feature_name (str): Name of the feature being acquired.</span>
+
+<span class="sd">    An example of a feature acquisition step could be::</span>
+
+<span class="sd">        class MyFeatureStep(FeatureAcquisitionStep):</span>
+<span class="sd">            def __init__(self, dataset_dir: Path):</span>
+<span class="sd">                super().__init__(dataset_dir, feature_name=&quot;my_feature&quot;)</span>
+
+<span class="sd">            def parse_ctx(self, raw_ctx):</span>
+<span class="sd">                # check if context has required data</span>
+<span class="sd">                if &quot;required_data&quot; not in raw_ctx:</span>
+<span class="sd">                    raise ValueError(&quot;Context must contain &#39;required_data&#39;&quot;)</span>
+<span class="sd">                # Parse the context here</span>
+<span class="sd">                return parsed_ctx</span>
+
+<span class="sd">            def compute(self, ctx):</span>
+<span class="sd">                required_data = ctx[&quot;required_data&quot;]</span>
+<span class="sd">                # Compute the feature using required_data</span>
+<span class="sd">                computed_feature = ...</span>
+<span class="sd">                # return the computed feature to be added to the context</span>
+<span class="sd">                # it is impo</span>
+<span class="sd">                return {self.feature_name: computed_feature}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">feature_name</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">feature_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_name</span> <span class="o">=</span> <span class="n">feature_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">,</span> <span class="n">append_clname</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># By default, clean cache before computing features</span>
+<div class="viewcode-block" id="FeatureAcquisitionStep.prepare">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.FeatureAcquisitionStep.prepare">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clean_cache</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Pipeline">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Pipeline</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for managing and executing a sequence of steps.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        _steps (list[Step]): List of steps in the pipeline.</span>
+<span class="sd">        _logger (_LoggerWithTQDM): Logger for logging messages.</span>
+<span class="sd">        _cache_dir (Path): Directory for caching results.</span>
+<span class="sd">        _feature_names (list[str]): List of feature names acquired</span>
+<span class="sd">        during the run.</span>
+
+<span class="sd">    A pipeline consists of multiple steps that are executed in order::</span>
+
+<span class="sd">        pipeline = Pipeline([</span>
+<span class="sd">            StepA(),</span>
+<span class="sd">            FeatureAcquisitionStepB(),</span>
+<span class="sd">            StepC(),</span>
+<span class="sd">        ])</span>
+<span class="sd">        pipeline.set_cache_dir(Path(&quot;./cache&quot;))</span>
+<span class="sd">        result = pipeline.run()</span>
+
+<span class="sd">        another_pipeline = Pipeline([</span>
+<span class="sd">            StepD(),</span>
+<span class="sd">            FeatureAcquisitionStepE(),</span>
+<span class="sd">        ])</span>
+<span class="sd">        another_pipeline.set_cache_dir(Path(&quot;./another_cache&quot;))</span>
+<span class="sd">        # you may pass the context from the previous pipeline run</span>
+<span class="sd">        # effectively chaining pipelines</span>
+<span class="sd">        another_result = another_pipeline.run(result[&quot;context&quot;])</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The pipeline logger and cache directory can be set for the entire pipeline,</span>
+<span class="sd">    and will be propagated to each step unless the step already has its own</span>
+<span class="sd">    logger or cache directory set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># true private static variable</span>
+    <span class="c1"># pylint: disable=invalid-name</span>
+    <span class="n">__default_logger</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_steps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Step</span><span class="p">]</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">_LoggerWithTQDM</span>
+    <span class="n">_cache_dir</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">_feature_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Initialize the Pipeline with a list of steps.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        steps: list[Step]</span>
+<span class="sd">            List of steps to be executed in the pipeline.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_steps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Step</span><span class="p">]</span> <span class="o">=</span> <span class="n">steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default_logger</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./rm-pipeline-cache&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Pipeline.from_pipeline">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline.from_pipeline">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="p">:</span> <span class="s2">&quot;Pipeline&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Pipeline&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new Pipeline instance from an existing one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pipeline: Pipeline</span>
+<span class="sd">            The existing pipeline to copy.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Pipeline</span>
+<span class="sd">            A new Pipeline instance with the same steps, logger,</span>
+<span class="sd">            cache directory, and feature names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=protected-access</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">_steps</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">set_logger</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">_logger</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span><span class="n">pipeline</span><span class="o">.</span><span class="n">_cache_dir</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">_feature_names</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">_feature_names</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.get_default_logger">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline.get_default_logger">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_default_logger</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Get the default logger used by the pipelines.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__default_logger</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__default_logger</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%(levelname)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">__default_logger</span> <span class="o">=</span> <span class="n">_LoggerWithTQDM</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__default_logger</span></div>
+
+    
+<div class="viewcode-block" id="Pipeline.set_default_logger">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_default_logger">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_logger</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;</span>
+<span class="sd">        Set the default logger used by the pipelines created posteriorly.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        logger: logging.Logger</span>
+<span class="sd">            The logger to be used as the default logger.</span>
+<span class="sd">        </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method sets the default logger for all pipelines</span>
+<span class="sd">        created after this call. Existing pipelines are not affected.</span>
+
+<span class="sd">        Be careful when using this method in any kind of complex application,</span>
+<span class="sd">        as it may lead to unexpected logging behavior.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">__default_logger</span> <span class="o">=</span> <span class="n">_LoggerWithTQDM</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.set_logger">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_logger">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wraps the provided logger and sets it for the pipeline.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        logger: logging.Logger</span>
+<span class="sd">            The logger to be used by the pipeline.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">_LoggerWithTQDM</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steps</span><span class="p">:</span>
+            <span class="n">step</span><span class="o">.</span><span class="n">set_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.set_logger_level">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_logger_level">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_logger_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the logging level for the pipeline&#39;s logger.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        level: int | str</span>
+<span class="sd">            The logging level to set (e.g., logging.INFO, &quot;DEBUG&quot;).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.set_cache_dir">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline.set_cache_dir">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_cache_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the cache directory for the pipeline.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cache_dir: Path</span>
+<span class="sd">            The base directory for storing cache.</span>
+<span class="sd">        overwrite: bool, optional</span>
+<span class="sd">            Whether to force steps to use the passed cache directory.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steps</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">step</span><span class="o">.</span><span class="n">cache_dir</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">overwrite</span><span class="p">:</span>
+                <span class="n">step</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cache_dir</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.add_step">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline.add_step">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="n">Step</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a step to the pipeline.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        step: Step</span>
+<span class="sd">            The step to be added to the pipeline.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.run">
+<a class="viewcode-back" href="../../api/rm_gen.html#rm_gen.core.Pipeline.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline with the given context.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        context: dict, optional</span>
+<span class="sd">            The initial context to run the pipeline with.</span>
+<span class="sd">            Defaults to an empty dictionary.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            A dictionary containing the final context and</span>
+<span class="sd">            the list of feature names acquired during the run.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Each step in the pipeline will be executed in order.</span>
+<span class="sd">        If a step does not have a logger or cache directory set,</span>
+<span class="sd">        it will inherit the pipeline&#39;s logger and cache directory.</span>
+
+<span class="sd">        The returned dictionary has the following structure::</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;context&quot;: final_context,</span>
+<span class="sd">                &quot;feature_names&quot;: list_of_feature_names,</span>
+<span class="sd">            }</span>
+
+<span class="sd">        where `final_context` is the context after all steps have been executed,</span>
+<span class="sd">        and `list_of_feature_names` is a list of feature names acquired</span>
+<span class="sd">        during the pipeline run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default_logger</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">tqdm_progress_bar</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_steps</span><span class="p">,</span>
+            <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Pipeline Steps&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">steps_progress_bar</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">steps_progress_bar</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting step &quot;</span> <span class="o">+</span> <span class="n">step</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">step</span><span class="o">.</span><span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">step</span><span class="o">.</span><span class="n">set_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">step</span><span class="o">.</span><span class="n">cache_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">step</span><span class="o">.</span><span class="n">set_cache_dir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cache_dir</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">FeatureAcquisitionStep</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                        <span class="s2">&quot;This step is a feature acquisition step&quot;</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">feature_name</span><span class="p">)</span>
+
+                <span class="c1"># step.clean_cache(context)</span>
+                <span class="n">context</span> <span class="o">=</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">context</span><span class="p">,</span>
+            <span class="s2">&quot;feature_names&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Artur Padovesi Piratelli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

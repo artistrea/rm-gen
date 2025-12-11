@@ -19,6 +19,7 @@ To setup virtual environment and install all packages run:
 
 In case you want to try running the examples, you may also want to install the optional dependencies.
 To do so, run:
+
 .. code-block:: bash
 
 	uv sync --all-groups

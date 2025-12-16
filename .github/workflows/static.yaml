@@ -42,6 +42,7 @@ jobs:
         run: |
           uv venv
           uv sync --all-groups
+          source .venv/bin/activate
           cd docs
           make html
       - name: Set up Pages

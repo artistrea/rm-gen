@@ -38,10 +38,13 @@ jobs:
         uses: astral-sh/setup-uv@v3
         with:
           version: 0.4.x
-      - name: Add dependencies, build site
+      - name: Add dependencies
         run: |
           uv venv
           uv sync --all-extras
+      - name: Build site
+        working-directory: docs
+        run: |
           make html
       - name: Set up Pages
         uses: actions/configure-pages@v5

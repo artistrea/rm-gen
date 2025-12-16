@@ -41,7 +41,7 @@ jobs:
       - name: Add dependencies and build docs
         run: |
           uv venv
-          uv sync --all-extras
+          uv sync --all-groups
           cd docs
           make html
       - name: Set up Pages

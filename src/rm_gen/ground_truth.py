@@ -1,9 +1,12 @@
+"""
+This module defines feature acquisition steps for generating ground truth
+radiomaps.
+"""
+
 from pathlib import Path
 
 import cv2
 from .core import FeatureAcquisitionStep
-# from .ground_truth.sionna_radiomap import generate_radiomap_on_grids
-from rasterio.features import rasterize
 from rasterio.transform import rowcol
 import numpy as np
 import typing
@@ -19,7 +22,10 @@ def _run_sionna_scene(
     grid_idx: int,
     min_path_gain: float,
     max_path_gain: float,
-    bounding_box: typing.Tuple[typing.Tuple[float, float], typing.Tuple[float, float]],
+    bounding_box: typing.Tuple[
+        typing.Tuple[float, float],
+        typing.Tuple[float, float]
+    ],
     resolution: typing.Tuple[float, float],
     tx_positions: typing.List[typing.Tuple[float, float, float]],
     logger: _LoggerWithTQDM,
@@ -27,6 +33,39 @@ def _run_sionna_scene(
     num_interactions: int = 2,
     batch_size: int = 10,
 ):
+    """
+    Generates radiomap images for the given transmitter positions and saves
+    them to the specified path.
+
+    Parameters
+    ----------
+    scene : sionna.rt.Scene
+        The Sionna scene object.
+    results_path : str
+        Path to save the generated radiomap images.
+    grid_idx : int
+        Index of the grid being processed.
+    min_path_gain : float
+        Minimum path gain for normalization.
+    max_path_gain : float
+        Maximum path gain for normalization.
+    bounding_box: Tuple[Tuple[float, float], Tuple[float, float]]
+        Bounding box of the area to generate the radiomap for.
+        Should be in grid coordinates.
+    resolution : Tuple[float, float]
+        Resolution of the radiomap.
+    tx_positions : List[Tuple[float, float, float]]
+        List of transmitter positions (x, y, z) in local coordinates.
+    logger : _LoggerWithTQDM
+        Logger for logging progress.
+    num_rays : int, optional
+        Number of rays to simulate per transmitter, by default 10**8.
+    num_interactions : int, optional
+        Number of interactions (reflections, diffractions)
+        to simulate, by default 2.
+    batch_size : int, optional
+        Number of transmitters to process in a batch, by default 10.
+    """
     rm_solver = RadioMapSolver()
     range_x = bounding_box[1][0] - bounding_box[0][0]
     range_y = bounding_box[1][1] - bounding_box[0][1]
@@ -37,7 +76,10 @@ def _run_sionna_scene(
 
     tx_id = 0
     windows_start_i = list(range(0, len(tx_positions), batch_size))
-    with logger.tqdm_progress_bar(windows_start_i, desc="Different tx positions") as pbar:
+    with logger.tqdm_progress_bar(
+        windows_start_i,
+        desc="Different tx positions"
+    ) as pbar:
         for wind_s in pbar:
             tx_to_consider = tx_positions[wind_s:wind_s+batch_size]
             for j, tx_pos in enumerate(tx_to_consider):
@@ -82,21 +124,48 @@ def _run_sionna_scene(
                 tx_id += 1
 
                 scene.remove(f"tx{j}")
+            exit()
 
 
 
 
 class SionnaRadiomapOnGrids(FeatureAcquisitionStep):
-    """Generates ground truth radiomap on grids using Sionna.
     """
-    def __init__(self,
-                 dataset_dir: Path,
-                 frequency: float,
-                 bandwidth: float,
-                 number_of_rays: int,
-                 number_of_interactions: int,
-                 min_gain: float,
-                 max_gain: float):
+    Generates ground truth radiomap on grids using Sionna.
+
+    Parameters
+    ----------
+    dataset_dir : Path
+        Path to the dataset directory.
+    frequency : float
+        Frequency in Hz.
+    bandwidth : float
+        Bandwidth in Hz.
+    number_of_rays : int
+        Number of rays to simulate per transmitter.
+    number_of_interactions : int
+        Number of interactions (reflections, diffractions) to simulate.
+    min_gain : float
+        Minimum path gain for normalization in dB.
+    max_gain : float
+        Maximum path gain for normalization in dB.
+
+    Notes
+    -----
+    This step is implemented as a FeatureAcquisitionStep as it generates
+    radiomap images that are stored in the cache directory corresponding
+    to this step. The generated feature is named "sionna_ground_truth".
+    """
+    def __init__(
+        self,
+        dataset_dir: Path,
+        frequency: float,
+        bandwidth: float,
+        number_of_rays: int,
+        number_of_interactions: int,
+        min_gain: float,
+        max_gain: float
+    ):
         super().__init__(dataset_dir, "sionna_ground_truth")
         self.frequency = frequency
         self.bandwidth = bandwidth
@@ -116,12 +185,43 @@ class SionnaRadiomapOnGrids(FeatureAcquisitionStep):
         return raw_ctx
 
     def cache_keys(self, ctx):
-        return [self.feature_name + f"_{self.min_gain}_{self.max_gain}_{self.number_of_interactions}_{self.number_of_rays}_{self.frequency}/"]
+        return [
+            self.feature_name
+            + f"_{self.min_gain}_{self.max_gain}_{self.number_of_interactions}"
+            + f"_{self.number_of_rays}_{self.frequency}/"
+        ]
 
     def compute(
         self,
         ctx
     ):
+        """
+        Generates ground truth radiomap on grids using Sionna.
+        
+        Parameters
+        ----------
+        ctx : dict
+            Context dictionary containing necessary information for
+            radiomap generation. Must include:
+
+            - "candidate_txs": A GeoDataFrame containing candidate transmitter
+              locations.
+            - "grid_definitions": A dictionary containing grid definitions,
+              including "local2grid", "grid2local", "resolution", "bboxes", and
+              "dangerously_mutable__masked_indices".
+            - "mitsuba_scene_path": Path to the Mitsuba scene file.
+
+        Returns
+        -------
+        dict
+            A dictionary containing the feature name as key and a dictionary
+            with the following keys as value:
+
+            - "folder": Path to the folder containing the generated radiomap
+              images.
+            - "feature_files_for_grid": A list of lists, where each sublist
+              contains the file paths of the radiomap images for each grid.
+        """
         candidate_txs = ctx["candidate_txs"]
         grid_definitions = ctx["grid_definitions"]
         local2grid = grid_definitions["local2grid"]
@@ -135,12 +235,11 @@ class SionnaRadiomapOnGrids(FeatureAcquisitionStep):
 
         gy, gx = rowcol(local2grid, xs, ys)
 
-        masked_grid_indices = np.array(list(grid_definitions["dangerously_mutable__masked_indices"]))
+        masked_grid_indices = np.array(list(
+            grid_definitions["dangerously_mutable__masked_indices"]
+        ))
 
         all_bboxes = np.array(grid_definitions["bboxes"])
-        all_indices = np.arange(len(all_bboxes))
-        # unmasked_indices = np.setdiff1d(all_indices, masked_grid_indices)
-        # bboxes = all_bboxes[unmasked_indices][:1]
 
         scene = load_scene(scene_file_path)
 
@@ -180,7 +279,7 @@ class SionnaRadiomapOnGrids(FeatureAcquisitionStep):
 
                 if tx_indices_in_bbox.size == 0:
                     self._logger.debug(
-                        f"No candidate TX in bbox {bbox_min} to {bbox_max}, skipping..."
+                        f"No candidate TX in bbox {bbox_min} to {bbox_max}..."
                     )
                     continue
 
@@ -197,7 +296,10 @@ class SionnaRadiomapOnGrids(FeatureAcquisitionStep):
                     grid_idx=idx,
                     min_path_gain=self.min_gain,
                     max_path_gain=self.max_gain,
-                    bounding_box=((local_xmin, local_ymin), (local_xmax, local_ymax)),
+                    bounding_box=(
+                        (local_xmin, local_ymin),
+                        (local_xmax, local_ymax)
+                    ),
                     resolution=resolution,
                     tx_positions=list(zip(tx_x, tx_y, tx_z)),
                     logger=self._logger,
@@ -206,7 +308,9 @@ class SionnaRadiomapOnGrids(FeatureAcquisitionStep):
                     batch_size=10,
                 )
 
-                folder_in_dataset = save_folder.resolve().relative_to(self._cache_dir.resolve())
+                folder_in_dataset = save_folder.resolve().relative_to(
+                    self._cache_dir.resolve()
+                )
 
         self._logger.info(
             f"Saved ground truth to folder {str(save_folder.resolve())}"

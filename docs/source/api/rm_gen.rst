@@ -20,6 +20,14 @@ rm\_gen.data\_source module
    :undoc-members:
    :show-inheritance:
 
+rm\_gen.data\_manipulation module
+---------------------------------
+
+.. automodule:: rm_gen.data_manipulation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 rm\_gen.features module
 -----------------------
 
@@ -36,13 +44,13 @@ rm\_gen.ground\_truth module
    :undoc-members:
    :show-inheritance:
 
-rm\_gen.log\_utils module
--------------------------
+.. rm\_gen.log\_utils module
+.. -------------------------
 
-.. automodule:: rm_gen.log_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. .. automodule:: rm_gen.log_utils
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:
 
 Module contents
 ---------------

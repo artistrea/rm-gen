@@ -40,14 +40,15 @@ def _run_command(command, logger: _LoggerWithTQDM = None):
         Exception: Reraises any exception that occurs during command execution.
     """
     try:
-        command_string = " ".join(command) if isinstance(command, list) else command
+        if isinstance(command, list):
+            command_string = " ".join(command)
+        else:
+            command_string = command
+
         if logger is not None:
             logger.debug("RUNNING: " + command_string)
         subprocess.run(
             command,
-            # shell=True,  # Set to True if the command is a string and needs shell processing
-            # capture_output=True,
-            # text=True,
             check=True
         )
     # pylint: disable=broad-except
@@ -134,7 +135,8 @@ class _OsmiumBuildingFootprintHandler(osmium.SimpleHandler):
 
     def area(self, a):
         """
-        Handle an OSM area object to extract building footprint geometry and attributes.
+        Handle an OSM area object to extract building footprint geometry
+        and attributes.
         """
         try:
             wkb = self.wkbfab.create_multipolygon(a)
@@ -157,8 +159,8 @@ class _OsmiumBuildingFootprintHandler(osmium.SimpleHandler):
 class BuildingFootprintFromDownload(Step):
     """
     Downloads OSM data from a given link, applies a bounding box,
-    filters for building footprints, and adds to context a geopandas.GeoDataFrame
-    with buildings footprint (w/ height when possible).
+    filters for building footprints, and adds to context a
+    geopandas.GeoDataFrame with buildings footprint (w/ height when possible).
 
     Notes
     -----
@@ -167,7 +169,8 @@ class BuildingFootprintFromDownload(Step):
     Example
     -------
         >>> step = BuildingFootprintFromDownload(
-        ...     download_link="download.geofabrik.de/south-america/brazil/sudeste-latest.osm.pbf",
+        ...     download_link="download.geofabrik.de/south-america/brazil/\
+sudeste-latest.osm.pbf",
         ...     lonlat_bounding_box=((-43.2319, -22.99), (-43.190, -22.96))
         ... )
         >>> result = step.run()
@@ -198,7 +201,7 @@ class BuildingFootprintFromDownload(Step):
                 "You need to install osmium to be able to run this step"
             )
 
-    def cache_keys(self, _ctx):
+    def cache_keys(self, ctx):
         download_hash = hashlib.md5(
             self.download_link.encode()
         ).hexdigest()
@@ -219,7 +222,9 @@ class BuildingFootprintFromDownload(Step):
         _, _, _, fp = self.cache_dirs(keys)
         gdf = gpd.read_file(fp)
 
-        self._logger.info("Number of building footprints loaded " + str(len(gdf)))
+        self._logger.info(
+            "Number of building footprints loaded " + str(len(gdf))
+        )
         return {"building_footprints": gdf}
 
     def parse_ctx(self, raw_ctx):
@@ -242,11 +247,17 @@ class BuildingFootprintFromDownload(Step):
             containing a geopandas.GeoDataFrame of building footprints.
         """
         keys = self.cache_keys(ctx)
-        download_path, bboxed_path, buildings_path, fp_path = self.cache_dirs(keys)
+        download_path, bboxed_path, buildings_path, fp_path =\
+            self.cache_dirs(keys)
 
         if not download_path.exists():
             self._logger.debug("Download OSM file")
-            _download_file(self.download_link, download_path, 1024 * 1024, self._logger)
+            _download_file(
+                self.download_link,
+                download_path,
+                1024 * 1024,
+                self._logger
+            )
         else:
             self._logger.debug("Using cached downloaded OSM file")
 
@@ -254,30 +265,37 @@ class BuildingFootprintFromDownload(Step):
             self._logger.debug("Applying bbox on OSM data")
             bbox = self.lonlat_bounding_box
             bbox_str = ",".join([
-                str(bbox[0][0]), str(bbox[0][1]), str(bbox[1][0]), str(bbox[1][1])
+                str(bbox[0][0]), str(bbox[0][1]),
+                str(bbox[1][0]), str(bbox[1][1])
             ])
             _run_command(["osmium", "extract",
                 "-b", bbox_str,
                 str(download_path),
                 "-o", str(bboxed_path),
-                 # "--overwrite"
+                # "--overwrite"
             ])
         else:
             self._logger.debug("Using cached bbox applied OSM data")
 
         if not buildings_path.exists():
-            self._logger.debug("Applying filter to get only buildings from OSM data")
+            self._logger.debug(
+                "Applying filter to get only buildings from OSM data"
+            )
             _run_command(["osmium", "tags-filter",
-                 str(bboxed_path),
-                 "nwr", "building",
-                 "-o", str(buildings_path),
-                 # "--overwrite"
-             ])
+                str(bboxed_path),
+                "nwr", "building",
+                "-o", str(buildings_path),
+                # "--overwrite"
+            ])
         else:
-            self._logger.debug("Using cached filter with only buildings from OSM data")
+            self._logger.debug(
+                "Using cached filter with only buildings from OSM data"
+            )
 
         if not fp_path.exists():
-            self._logger.debug("Filtering only wanted properties and creating final GeoJSON")
+            self._logger.debug(
+                "Filtering only wanted properties and creating final GeoJSON"
+            )
             handler = _OsmiumBuildingFootprintHandler()
             handler.apply_file(str(buildings_path.resolve()))
 
@@ -297,7 +315,9 @@ class BuildingFootprintFromDownload(Step):
             self._logger.debug("Using cached final GeoJSON")
 
         fps = gpd.read_file(fp_path)
-        self._logger.info("Number of building footprints loaded " + str(len(fps)))
+        self._logger.info(
+            "Number of building footprints loaded " + str(len(fps))
+        )
 
         return {"building_footprints": fps}
 
@@ -328,7 +348,7 @@ class BuildingFootprintFromOSMPlace(Step):
         super().__init__()
         self.place_query = place_query
 
-    def cache_keys(self, _ctx):
+    def cache_keys(self, ctx):
         place_query = self.place_query
         # place_query_hash = hashlib.md5(
         #     self.place_query.encode()
@@ -341,7 +361,9 @@ class BuildingFootprintFromOSMPlace(Step):
     def load_cache(self, keys):
         fp = self.cache_dirs(keys)[0]
         gdf = gpd.read_file(fp)
-        self._logger.info("Number of building footprints loaded " + str(len(gdf)))
+        self._logger.info(
+            "Number of building footprints loaded " + str(len(gdf))
+        )
 
         return {"building_footprints": gdf}
 
@@ -366,10 +388,12 @@ class BuildingFootprintFromOSMPlace(Step):
                 buildings.geometry.type.isin(['Polygon','MultiPolygon'])
             ]
             buildings.to_file(fp_path, driver="GeoJSON")
-        
+
         fps = gpd.read_file(fp_path)
 
-        self._logger.info("Number of building footprints loaded " + str(len(fps)))
+        self._logger.info(
+            "Number of building footprints loaded " + str(len(fps))
+        )
 
         return {"building_footprints": fps}
 
@@ -397,7 +421,11 @@ class RandomBuildingHeight(Step):
         building_fps = ctx["building_footprints"]
 
         height = building_fps["height"].to_numpy()
-        height = self.rng.uniform(self.min_height, self.max_height, size=height.shape)
+        height = self.rng.uniform(
+            self.min_height,
+            self.max_height,
+            size=height.shape
+        )
 
         return {"building_heights": height}
 

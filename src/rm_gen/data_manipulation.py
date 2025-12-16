@@ -1,7 +1,15 @@
+"""
+This module contains data manipulation steps for the rm_gen package.
+
+It includes steps for creating Mitsuba scenes, converting building
+footprints to local coordinates, generating candidate transmitter
+locations, generating scenario grids, etc.
+"""
+
 import hashlib
 import shutil
 import typing
-import xml.dom.minidom as minidom
+from xml.dom import minidom
 import xml.etree.ElementTree as ET
 from itertools import product
 from pathlib import Path
@@ -16,12 +24,36 @@ from .core import Step
 
 
 class CreateFullMitsubaScene(Step):
+    """
+    Class to create a full Mitsuba scene XML file, including triangulated
+    building meshes extruded from building footprints and a ground plane
+
+    Parameters
+    ----------
+    floor_mat : str
+        Material ID for the ground/floor.
+    building_mat : str
+        Material ID for the buildings.
+    clean_cached_scene : bool
+        Whether to clean the cached scene before creating a new one.
+    
+    Notes
+    -----
+    The step requires the following context keys:
+
+    - "local_coord_sys_attributes": dict with local coordinate
+        system attributes
+    - "local_building_footprints": GeoDataFrame with building footprints
+    - "building_heights": list or array of building heights
+    """
     def __init__(
         self,
         floor_mat="itu_medium_dry_ground",
         building_mat="itu_concrete",
         clean_cached_scene=False,
     ):
+        """
+        """
         super().__init__()
         self.floor_mat = floor_mat
         self.building_mat = building_mat
@@ -75,6 +107,20 @@ class CreateFullMitsubaScene(Step):
         return geom
 
     def get_building_ring(self, building_polygon: shp.Polygon):
+        """
+        Cleans building polygon and returns the coordinates
+        of its ring.
+
+        Parameters
+        ---------
+        building_polygon : shapely.Polygon
+            The building footprint polygon.
+
+        Returns
+        -------
+        List[Tuple[float, float]]
+            List of (x, y) coordinates of the building's exterior ring.
+        """
         building_polygon = self.clean_polygon(building_polygon)
         exterior_coords = building_polygon.exterior.coords
         oriented_coords = list(exterior_coords)
@@ -85,12 +131,32 @@ class CreateFullMitsubaScene(Step):
         self, scene, actual_meshes_dir, xml_saved_meshes_dir, material_type,
         local_building_footprints, building_heights
     ):
+        """
+        Creates building mesh files and adds their path to the scene xml.
+
+        Parameters
+        ----------
+        scene : xml.etree.ElementTree.Element
+            The root element of the Mitsuba scene XML.
+        actual_meshes_dir : Path
+            Directory where the mesh files will be saved.
+        xml_saved_meshes_dir : Path
+            Directory path to be saved in the XML file.
+        material_type : str
+            Material ID for the buildings.
+        local_building_footprints : geopandas.GeoDataFrame
+            GeoDataFrame containing building footprints.
+        building_heights : List[float]
+            List of building heights corresponding to the footprints.
+        """
         buildings_list = local_building_footprints.to_dict('records')
         skipped = 0
 
-        with self._logger.tqdm_progress_bar(enumerate(buildings_list),
-                                total=len(buildings_list),
-                                desc="Creating building meshes") as building_iter:
+        with self._logger.tqdm_progress_bar(
+            enumerate(buildings_list),
+            total=len(buildings_list),
+            desc="Creating building meshes"
+        ) as building_iter:
             for idx, building in building_iter:
                 # Convert building geometry to a shapely polygon
                 building_poly = self.clean_polygon(
@@ -107,21 +173,45 @@ class CreateFullMitsubaScene(Step):
                 )
 
                 # export mesh to PLY file
-                building_mesh.export(str(actual_meshes_dir / f"building_{idx}.ply"))
+                building_mesh.export(
+                    str(actual_meshes_dir / f"building_{idx}.ply")
+                )
 
                 # Add shape elements for PLY files in the folder
-                sionna_shape = ET.SubElement(scene, "shape", type="ply", id=f"mesh-building_{idx}")
+                sionna_shape = ET.SubElement(
+                    scene,
+                    "shape",
+                    type="ply",
+                    id=f"mesh-building_{idx}"
+                )
 
                 # mesh path
-                ET.SubElement(sionna_shape, "string", name="filename", value=str(xml_saved_meshes_dir / f"building_{idx}.ply"))
+                ET.SubElement(
+                    sionna_shape,
+                    "string",
+                    name="filename",
+                    value=str(xml_saved_meshes_dir / f"building_{idx}.ply")
+                )
 
                 # bsdf material
-                ET.SubElement(sionna_shape, "ref", id= material_type, name="bsdf")
+                ET.SubElement(
+                    sionna_shape,
+                    "ref",
+                    id= material_type,
+                    name="bsdf"
+                )
 
                 # TODO: check face_normals and its edge cases
-                ET.SubElement(sionna_shape, "boolean", name="face_normals",value="true")
+                ET.SubElement(
+                    sionna_shape,
+                    "boolean",
+                    name="face_normals",
+                    value="true"
+                )
 
-        self._logger.info(f"Skipping {skipped} buildings due to invalid geometry")
+        self._logger.info(
+            f"Skipping {skipped} buildings due to invalid geometry"
+        )
 
     def add_floor_to_scene(
         self,
@@ -131,6 +221,22 @@ class CreateFullMitsubaScene(Step):
         material_type: str,
         minx: float, miny: float, maxx: float, maxy: float
     ):
+        """
+        Creates ground mesh and adds its path to the scene xml.
+
+        Parameters
+        ----------
+        scene_xml : xml.etree.ElementTree.Element
+            The root element of the Mitsuba scene XML.
+        actual_meshes_dir : Path
+            Directory where the mesh files will be saved.
+        xml_saved_meshes_dir : Path
+            Directory path to be saved in the XML file.
+        material_type : str
+            Material ID for the ground.
+        minx, miny, maxx, maxy : float
+            Bounding box coordinates for the ground plane.
+        """
         ground_polygon = shp.box(minx, miny, maxx, maxy, ccw=True)
 
         verts2d, faces2d = trimesh.creation.triangulate_polygon(ground_polygon)
@@ -141,7 +247,12 @@ class CreateFullMitsubaScene(Step):
 
         mesh3d.export(str(actual_meshes_dir / "ground.ply"))
 
-        ground_shape = ET.SubElement(scene_xml, "shape", type="ply", id="mesh-ground")
+        ground_shape = ET.SubElement(
+            scene_xml,
+            "shape",
+            type="ply",
+            id="mesh-ground"
+        )
         ET.SubElement(
             ground_shape, "string", name="filename",
             value=str(xml_saved_meshes_dir / "ground.ply")
@@ -151,10 +262,40 @@ class CreateFullMitsubaScene(Step):
         ET.SubElement(ground_shape, "boolean", name="face_normals",value="true")
 
     def prepare(self, ctx):
+        """
+        Cleans cached scene if specified.
+        """
         if self.clean_cached_scene:
             self.clean_cache(ctx)
 
     def compute(self, ctx):
+        """
+        Creates the Mitsuba scene XML file along with building and
+        ground meshes.
+
+        Parameters
+        ----------
+        ctx : dict
+            Context dictionary containing necessary data.
+
+        Returns
+        -------
+        dict
+            Dictionary with the path to the generated Mitsuba scene XML file.
+
+        Notes
+        -----
+        The step requires the following context keys:
+
+        - "local_coord_sys_attributes": dict with local coordinate system
+          attributes
+        - "local_building_footprints": GeoDataFrame with building footprints
+        - "building_heights": list or array of building heights
+
+        And produces:
+
+        - "mitsuba_scene_path": Path to the generated Mitsuba scene XML file
+        """
         keys = self.cache_keys(ctx)
         meshes_dir, scene_path = self.cache_dirs(keys)
         bounds = ctx["local_coord_sys_attributes"]["bounds"]
@@ -167,7 +308,10 @@ class CreateFullMitsubaScene(Step):
             shutil.rmtree(meshes_dir)
         # recreate them
         meshes_dir.mkdir(exist_ok=True)
-        xml_saved_meshes_dir = meshes_dir.resolve().relative_to(scene_path.parent.resolve())
+        xml_saved_meshes_dir = (
+            meshes_dir.resolve()
+               .relative_to(scene_path.parent.resolve())
+        )
 
         scene = ET.Element("scene", version="2.1.0")
 
@@ -175,17 +319,22 @@ class CreateFullMitsubaScene(Step):
 
         # Define materials
         for material_id in self.materials_used:
-            bsdf_twosided = ET.SubElement(scene, "bsdf", type="twosided", id=material_id)
+            bsdf_twosided = ET.SubElement(
+                scene,
+                "bsdf",
+                type="twosided",
+                id=material_id
+            )
             ET.SubElement(bsdf_twosided, "bsdf", type="diffuse")
-            # ET.SubElement(bsdf_diffuse, "rgb", value=f"{rgb[0]} {rgb[1]} {rgb[2]}", name="reflectance")
 
         self.add_floor_to_scene(
-            scene, meshes_dir, xml_saved_meshes_dir, self.floor_mat, minx, miny, maxx, maxy
+            scene, meshes_dir, xml_saved_meshes_dir,
+            self.floor_mat, minx, miny, maxx, maxy
         )
 
         self.add_buildings_to_scene(
-            scene, meshes_dir, xml_saved_meshes_dir, self.building_mat,
-            local_building_footprints, building_heights
+            scene, meshes_dir, xml_saved_meshes_dir,
+            self.building_mat, local_building_footprints, building_heights
         )
 
         xml_string = ET.tostring(scene, encoding="utf-8")
@@ -196,16 +345,30 @@ class CreateFullMitsubaScene(Step):
 
         return {"mitsuba_scene_path": scene_path.resolve()}
 
+
+# Axis Aligned Bounding Box.
+BBox = typing.Tuple[typing.Tuple[float, float], typing.Tuple[float, float]]
+
 class BuildingFootprintToLocalCoords(Step):
+    """
+    Defines a local coordinate system and converts building footprints
+    from EPSG:4326 to a local coordinate system.
+
+    Parameters
+    ----------
+    origin_at : str
+        Where to place the origin of the local coordinate system.
+        Options are "bottom_left" or "center".
+    local_coords_bbox : BBox, optional
+        Axis aligned bounding box in local coordinates to crop
+        the building footprints. If None, no cropping is applied.
+        If provided, it should be in the format:
+        ((minx, miny), (maxx, maxy))
+    """
     def __init__(
         self,
         origin_at="bottom_left",
-        local_coords_bbox: typing.Optional[
-            typing.Tuple[
-                typing.Tuple[float, float],
-                typing.Tuple[float, float]
-            ]
-        ] = None,
+        local_coords_bbox: typing.Optional[BBox] = None,
     ):
         if origin_at not in ["bottom_left", "center"]:
             raise ValueError("'origin_at' must be 'bottom_left' or 'center'")
@@ -225,7 +388,8 @@ class BuildingFootprintToLocalCoords(Step):
         fps = ctx["building_footprints"]
         if fps.crs != "EPSG:4326":
             raise ValueError(
-                "Building footprints need to be in EPSG:4326 before conversion to local"
+                "Building footprints need to be in"
+                " EPSG:4326 before conversion to local"
             )
         utm_crs = fps.estimate_utm_crs()
         utm_fps = fps.to_crs(utm_crs)
@@ -244,7 +408,9 @@ class BuildingFootprintToLocalCoords(Step):
             center_y = (miny + maxy) / 2
             range_x = maxx - minx
             range_y = maxy - miny
-            utm_fps["geometry"] = utm_fps.translate(xoff=-center_x, yoff=-center_y)
+            utm_fps["geometry"] = utm_fps.translate(
+                xoff=-center_x, yoff=-center_y
+            )
             local_coord_sys_attributes ={
                 "center": (0.0, 0.0),
                 "bounds": (-range_x/2, -range_y/2, range_x/2, range_y/2),
@@ -254,7 +420,11 @@ class BuildingFootprintToLocalCoords(Step):
             raise ValueError("Invalid 'origin_at' value")
 
         if self.local_coords_bbox is not None:
-            (bbox_minx, bbox_miny), (bbox_maxx, bbox_maxy) = self.local_coords_bbox
+            (
+                (bbox_minx, bbox_miny),
+                (bbox_maxx, bbox_maxy)
+            ) = self.local_coords_bbox
+
             local_building_footprints = local_building_footprints.cx[
                 bbox_minx:bbox_maxx,
                 bbox_miny:bbox_maxy
@@ -266,6 +436,20 @@ class BuildingFootprintToLocalCoords(Step):
         }
 
 class GenerateCandidateTransmittersOnBuildings(Step):
+    """
+    Generates candidate transmitter locations on building rooftops.
+
+    Parameters
+    ----------
+    height_above_building : float
+        Height above building rooftop to place the transmitter (meters).
+    min_building_height : float
+        Minimum building height to consider for placing transmitters
+        (meters).
+    step : float
+        Distance between candidate transmitters along the building rooftop
+        perimeter (meters).
+    """
     def __init__(
         self,
         height_above_building,
@@ -294,11 +478,14 @@ class GenerateCandidateTransmittersOnBuildings(Step):
         return [
             f"candidate_txs/{tx_hash}.geojson",
         ]
-    
+
     def load_cache(self, keys):
         fp = self.cache_dirs(keys)[0]
         gdf = gpd.read_file(fp)
-        self._logger.info("Loaded " + str(len(gdf)) + " candidate transmitter locations from cache")
+        self._logger.info(
+            "Loaded " + str(len(gdf))
+            + " candidate transmitter locations from cache"
+        )
         return {"candidate_txs": gdf}
 
     def parse_ctx(self, raw_ctx) -> typing.Any:
@@ -312,6 +499,28 @@ class GenerateCandidateTransmittersOnBuildings(Step):
         return raw_ctx
 
     def compute(self, ctx):
+        """
+        Generates candidate transmitter locations on building rooftops.
+        Parameters
+        ----------
+        ctx : dict
+            Context dictionary containing necessary data.
+        Returns
+        -------
+        dict
+            Dictionary with a GeoDataFrame of candidate transmitter locations.
+
+        Notes
+        -----
+        The step requires the following context keys:
+
+        - "local_building_footprints": GeoDataFrame with building footprints
+        - "building_heights": list or array of building heights
+
+        And produces:
+
+        - "candidate_txs": GeoDataFrame with candidate transmitter locations
+        """
         cached_tx_dir = self.cache_dirs(self.cache_keys(ctx))[0]
 
         if cached_tx_dir.exists():
@@ -351,7 +560,10 @@ class GenerateCandidateTransmittersOnBuildings(Step):
         min_building_height = self.min_building_height  # meters
         height_above_building = self.height_above_building  # meters
 
-        with self._logger.tqdm_progress_bar(list(enumerate(polys)), desc="Generating candidate tx on buildings") as bar:
+        with self._logger.tqdm_progress_bar(
+            list(enumerate(polys)),
+            desc="Generating candidate tx on buildings"
+        ) as bar:
             for idx, poly in bar:
                 building_height = heights[idx]
                 if building_height < min_building_height:
@@ -377,12 +589,15 @@ class GenerateCandidateTransmittersOnBuildings(Step):
                             covered = True
                             break
 
+                    if covered:
+                        continue
+
                     # adds 2d point
                     candidate_points.append(pt2d)
                     tx_hs.append(tx_height)
 
         gdf = gpd.GeoDataFrame(
-            dict(height=[h for h in tx_hs]),
+            {"height": tx_hs},
             geometry=candidate_points,
             crs=local_building_fps.crs,
         )
@@ -392,28 +607,46 @@ class GenerateCandidateTransmittersOnBuildings(Step):
         gdf.to_file(fp, driver="GeoJSON")
 
         # self._logger.info(gdf)
-        self._logger.info("Generated " + str(len(gdf)) + " candidate transmitter locations")
+        self._logger.info(
+            "Generated " + str(len(gdf))
+            + " candidate transmitter locations"
+        )
 
         return {
             "candidate_txs": gdf,
         }
 
 class GenerateScenariosInGrids(Step):
+    """
+    Step to generate grids over the local coordinate system
+    for scenario generation.
+    """
     def __init__(
         self,
         resolution: typing.Tuple[float, float],
         grid_len: typing.Tuple[int, int],
         grid_step: typing.Tuple[int, int],
     ):
-        """Creates grids over the local coordinate system for scenario generation
-        resolution: (x_res, y_res) in meters
-        grid_len: (x_len, y_len) in number of cells
-        grid_step: (x_step, y_step) in number of cells
+        """
+        Parameters
+        ----------
+        resolution : Tuple[float, float]
+            Resolution of the grid in meters per pixel (x, y).
+        grid_len : Tuple[int, int]
+            Length of each grid in pixels (width, height).
+        grid_step : Tuple[int, int]
+            Step between grids in pixels (x_step, y_step).
 
-        Windows over scenario from bottom left to top right, with given step and length
-        256x256 cells with 128 step would create overlapping windows of 256x256 cells
-        every 128 cells in x and y direction
-        256x256 cells with 256 step would create non-overlapping windows of 256 cells
+        Examples
+        --------
+        >>> step = GenerateScenariosInGrids(
+        ...     resolution=(1.0, 1.0),
+        ...     grid_len=(100, 100),
+        ...     grid_step=(50, 50),
+        ... )
+        ... # Creates grids of size 100x100 pixels with 1 meter per pixel
+        ... # and a step of 50 pixels between grids.
+        ... # This results in grids with overlapping areas.
         """
         super().__init__()
         self.resolution = resolution
@@ -423,11 +656,53 @@ class GenerateScenariosInGrids(Step):
     def parse_ctx(self, raw_ctx) -> typing.Any:
         if "local_coord_sys_attributes" not in raw_ctx:
             raise ValueError(
-                "This step requires 'local_coord_sys_attributes' to be in context"
+                "This step requires" +
+                "'local_coord_sys_attributes' to be in context"
             )
         return raw_ctx
 
     def compute(self, ctx):
+        """
+        Generates grids over the local coordinate system.
+
+        Parameters
+        ----------
+        ctx : dict
+            Context dictionary containing necessary data.
+
+        Returns
+        -------
+        dict
+            Dictionary with grid definitions.
+
+        Notes
+        -----
+        The step requires the following context keys:
+
+        - "local_coord_sys_attributes": dict with local coordinate system
+          attributes
+
+        This produces:
+
+        - "grid_definitions": dict with grid definitions
+
+        where the "grid_definition" keys are:
+
+        - "grid_size": Tuple[int, int] size of each grid in pixels
+        - "local_coord_size": Tuple[int, int] size of the local
+          coordinate system in pixels
+        - "resolution": Tuple[float, float] resolution of the grid
+          in meters per pixel (x, y)
+        - "bboxes": List[Tuple[Tuple[int, int], Tuple[int, int]] list of
+          bounding boxes for each grid in pixel coordinates
+        - "local2grid": Affine transformation from local to grid
+          coordinates
+        - "grid2local": Affine transformation from grid to local
+          coordinates
+        - "dangerously_mutable__masked_indices": set to store indices
+          of grids that are masked out later
+
+        """
         local_coord_sys_attributes = ctx["local_coord_sys_attributes"]
         scale = self.resolution
 
@@ -445,8 +720,10 @@ class GenerateScenariosInGrids(Step):
         len_x, len_y = self.grid_len
 
         self._logger.debug(
-            f"Generating grids over grid coordinate system of size ({width}, {height}) "+
-            f"with grid size ({len_x}, {len_y}) and step ({step_x}, {step_y})"
+            "Generating grids over grid coordinate system"+
+            f" of size ({width}, {height}) "+
+            f"with grid size ({len_x}, {len_y}) and step"+
+            f"({step_x}, {step_y})"
         )
 
         grid_bboxes = []
@@ -458,7 +735,9 @@ class GenerateScenariosInGrids(Step):
                 (i + len_x, j + len_y),
             ))
 
-        self._logger.info(f"Generated {len(grid_bboxes)} grids over local coordinate system")
+        self._logger.info(
+            f"Generated {len(grid_bboxes)} grids over local coordinate system"
+        )
 
         return {
             "grid_definitions": {
@@ -472,5 +751,3 @@ class GenerateScenariosInGrids(Step):
                 "dangerously_mutable__masked_indices": set()
             },
         }
-
-

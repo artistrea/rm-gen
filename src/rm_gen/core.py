@@ -1,5 +1,3 @@
-# help me write documentation so that sphinx can generate it
-
 """
 Core module for the rm_gen package.
 
@@ -28,17 +26,10 @@ from .log_utils import _LoggerWithTQDM
 class Step(ABC):
     """
     Base class for a pipeline step.
-    Each step can prepare its context, check for cached results,
-    compute new results, and load cached results if available.
 
     Each step is responsible for defining its own cache keys,
     how to parse the context it receives, how to compute results,
-    and how to store and load cached results.
-
-    Attributes:
-        _computed (bool): Flag indicating if the step has been computed.
-        _cache_dir (Path): Directory for caching results.
-        _logger (_LoggerWithTQDM): Logger for logging messages.
+    and how to store and load its cached results.
     """
     _computed: bool = False
     _cache_dir: Path = None
@@ -84,6 +75,7 @@ class Step(ABC):
 
     def set_logger(self, logger):
         """Set the logger for the step.
+
         Parameters
         ----------
         logger: logging.Logger
@@ -147,6 +139,7 @@ class Step(ABC):
                 else:
                     f.unlink()
 
+    # pylint: disable=unused-argument
     def cache_keys(self, ctx):
         """Get the cache keys for the given context.
 
@@ -163,6 +156,7 @@ class Step(ABC):
         """
         return []
 
+    # pylint: disable=unused-argument
     def prepare(self, ctx):
         """Prepare the step with the given context.
 
@@ -182,11 +176,14 @@ class Step(ABC):
         return
 
     def load_cache(self, keys):
-        """"Load the cached results for the given keys.
+        """
+        Load the cached results for the given keys.
+        
         Parameters
         ----------
         keys: list[str]
             List of cache keys.
+
         Returns
         -------
         dict
@@ -195,11 +192,14 @@ class Step(ABC):
         raise NotImplementedError()
 
     def parse_ctx(self, raw_ctx) -> typing.Any:
-        """"Parse the raw context into the format required by the step.
+        """
+        Parse the raw context into the format required by the step.
+
         Parameters
         ----------
         raw_ctx: dict
             The raw context to parse.
+
         Returns
         -------
         typing.Any
@@ -265,8 +265,6 @@ class Step(ABC):
 class FeatureAcquisitionStep(Step):
     """
     Specialized step for acquiring features.
-    Attributes:
-        feature_name (str): Name of the feature being acquired.
 
     An example of a feature acquisition step could be::
 
@@ -305,13 +303,6 @@ class Pipeline():
     """
     Class for managing and executing a sequence of steps.
 
-    Attributes:
-        _steps (list[Step]): List of steps in the pipeline.
-        _logger (_LoggerWithTQDM): Logger for logging messages.
-        _cache_dir (Path): Directory for caching results.
-        _feature_names (list[str]): List of feature names acquired
-        during the run.
-
     A pipeline consists of multiple steps that are executed in order::
 
         pipeline = Pipeline([
@@ -347,7 +338,8 @@ class Pipeline():
     _feature_names: list[str]
 
     def __init__(self, steps):
-        """"Initialize the Pipeline with a list of steps.
+        """
+        Initialize the Pipeline with a list of steps.
 
         Parameters
         ----------
@@ -383,7 +375,7 @@ class Pipeline():
 
     @classmethod
     def get_default_logger(cls):
-        """"Get the default logger used by the pipelines."""
+        """Get the default logger used by the pipelines."""
         if cls.__default_logger is not None:
             return cls.__default_logger
 
@@ -394,10 +386,10 @@ class Pipeline():
         logger.addHandler(handler)
         cls.__default_logger = _LoggerWithTQDM(logger)
         return cls.__default_logger
-    
+
     @classmethod
     def set_default_logger(cls, logger: logging.Logger):
-        """"
+        """
         Set the default logger used by the pipelines created posteriorly.
 
         Parameters
@@ -429,6 +421,7 @@ class Pipeline():
 
     def set_logger_level(self, level: int | str):
         """Set the logging level for the pipeline's logger.
+
         Parameters
         ----------
         level: int | str
@@ -454,6 +447,7 @@ class Pipeline():
 
     def add_step(self, step: Step):
         """Add a step to the pipeline.
+
         Parameters
         ----------
         step: Step

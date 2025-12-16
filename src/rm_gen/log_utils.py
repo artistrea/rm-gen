@@ -1,3 +1,10 @@
+"""
+This module provides logging utilities that integrate with tqdm progress bars.
+It defines a logger wrapper that allows logging messages to be displayed
+correctly when using tqdm for progress indication.
+"""
+
+
 import io
 import logging
 import sys
@@ -26,28 +33,46 @@ class _LoggerWithTQDM:
     ):
         self._logger = logger
         self._tqdm_enabled = tqdm_enabled
-        self._stream = self._logger.handlers[0].stream if self._logger.handlers else None
+        if self._logger.handlers:
+            self._stream = self._logger.handlers[0].stream
+        else:
+            self._stream = sys.stdout
 
     def _is_console_handler(self):
         if not self._logger:
             return False
         for h in self._logger.handlers:
-            if isinstance(h, logging.StreamHandler) and h.stream in (sys.stdout, sys.stderr):
+            if (
+                isinstance(h, logging.StreamHandler)
+                and h.stream in (sys.stdout, sys.stderr)
+            ):
                 return True
         return False
 
     # --------------------------------------------------------------
     # Basic passthrough (standard logging behavior)
-    def debug(self, msg: str, *a, **k): self._logger.debug(msg, *a, **k)
-    def info(self, msg: str, *a, **k): self._logger.info(msg, *a, **k)
-    def warning(self, msg: str, *a, **k): self._logger.warning(msg, *a, **k)
-    def error(self, msg: str, *a, **k): self._logger.error(msg, *a, **k)
-    def critical(self, msg: str, *a, **k): self._logger.critical(msg, *a, **k)
-    def setLevel(self, level: int | str): self._logger.setLevel(level)
+    def debug(self, msg: str, *a, **k):
+        self._logger.debug(msg, *a, **k)
+    def info(self, msg: str, *a, **k):
+        self._logger.info(msg, *a, **k)
+    def warning(self, msg: str, *a, **k):
+        self._logger.warning(msg, *a, **k)
+    def error(self, msg: str, *a, **k):
+        self._logger.error(msg, *a, **k)
+    def critical(self, msg: str, *a, **k):
+        self._logger.critical(msg, *a, **k)
+    # pylint: disable=invalid-name,multiple-statements
+    def setLevel(self, level: int | str):
+        self._logger.setLevel(level)
     # --------------------------------------------------------------
 
     @contextmanager
-    def tqdm_progress_bar(self, iterable: Iterable, level: int = logging.INFO, **tqdm_opts):
+    def tqdm_progress_bar(
+        self,
+        iterable: Iterable,
+        level: int = logging.INFO,
+        **tqdm_opts
+    ):
         """
         Wraps an iterable with tqdm progress bar if logging level is enabled.
         If tqdm is not enabled or logging level is not enabled, returns the
@@ -80,8 +105,9 @@ class _LoggerWithTQDM:
                 self._logger.log(level, f"TQDM ITERATION START: {bar.desc}")
                 yield bar
                 bar_info = bar.format_dict
+                frac = f"{bar_info['n']}/{bar_info['total'] or '?'}"
                 formatted_info = {
-                    "processed": f"{bar_info['n']}/{bar_info['total'] or '?'} {bar_info['unit']}",
+                    "processed": f"{frac} {bar_info['unit']}",
                     "elapsed": bar.format_interval(bar_info["elapsed"]),
                 }
                 if bar_info["postfix"]:

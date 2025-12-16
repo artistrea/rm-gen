@@ -1,5 +1,3 @@
-# pretty much taken from
-# https://github.com/rst2pdf/rst2pdf.github.io/blob/main/.github/workflows/static.yml
 name: Deploy Sphinx to GitHub Pages
 
 on:
@@ -53,7 +51,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'build/html'
+          path: 'docs/build/html'
 
   deploy:
     runs-on: ubuntu-latest
